@@ -444,8 +444,8 @@ namespace LectorQR
             if (copiado_cod_error && CodigoErroneoTB.Text != "") CodigoErroneoTB.Text = ""; copiado_cod_error = false;
             if (e.KeyCode == Keys.Enter)
             {
-                //List_Errs.Add( ExtraerCodigo(CodigoErroneoTB.Text));
-                List_Errs.Add(CodigoErroneoTB.Text);
+                List_Errs.Add(ExtraerCodigo(CodigoErroneoTB.Text));
+                //List_Errs.Add(CodigoErroneoTB.Text);
                 RichTCD_Erroneo.Text += ExtraerCodigo(CodigoErroneoTB.Text) + Environment.NewLine;
                 GuardarErrores();
                 copiado_cod_error = true;
