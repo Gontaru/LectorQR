@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -43,18 +44,69 @@ namespace LectorQR
         //TcpListener myList = new TcpListener(IPAddress.Any, 8010);
         public bool Inicio = false;
         private bool copiado_cod_error;
+        static List<double> max_tiempo= new List<double>();
+        double maxT = 0;
+        double contador_sec = 0;
+        int num_bot_per_sec = 0, max_num_bot_per_sec=0;
 
         public MainLectorQR()
         {
+            Stopwatch timeMeasure = new Stopwatch();
+
             InitializeComponent();
-            List_Cods.Add("12310259019254");
-            List_Cods.Add("ashnfoiahjgfoasf");
-            List_Cods.Add("FIN");
-            Guardar();
             ThreadConexion = new Thread(() =>
             {
                  new PipeClient(this);
             }); ThreadConexion.Start();
+            for(int i = 0; i<10000; i++)
+            {
+                timeMeasure = new Stopwatch();
+                timeMeasure.Start();
+                COD_LEIDO = "https://www2.agenciatributaria.gob.es/wlpl/ADMF-JDIT/V?C="+(20030780005+i)+"&T=+XHyxjyFj3mxx3Tldf6l6A==";
+                EscribirTB();
+
+                if (!Guardando)
+                {
+                    Guardando = true;
+                    Thread T2 = new Thread(() =>
+                    {
+                        Guardar();
+                    }); T2.Start();
+                }
+                timeMeasure.Stop();
+
+
+                if (contador_sec >= 1000)
+                {
+                    if (max_num_bot_per_sec < num_bot_per_sec)
+                    {
+                        max_num_bot_per_sec = num_bot_per_sec;
+                    }
+                    num_bot_per_sec = 0;
+                    contador_sec = 0;
+                }
+
+                else {
+                    contador_sec += timeMeasure.Elapsed.TotalMilliseconds;
+                    num_bot_per_sec++;
+
+                }
+                if (timeMeasure.Elapsed.TotalMilliseconds > maxT)
+                {
+                    maxT = timeMeasure.Elapsed.TotalMilliseconds;
+                }
+                if (timeMeasure.Elapsed.TotalMilliseconds > 200)
+                {
+                    Console.WriteLine("NOS HEMOS PASADO");
+                    max_tiempo.Add(timeMeasure.Elapsed.TotalMilliseconds);
+                }
+                Console.WriteLine("Tiempo: " + timeMeasure.Elapsed.TotalMilliseconds + " ms");
+            }
+            Console.WriteLine("TIEMPOS COMPROMETIDOS");
+            foreach (double t in max_tiempo) {
+                Console.WriteLine("Tiempo: " +t);
+            }
+            Console.WriteLine("TIEMPO MAXIMO: " + maxT);
         }
         //Función que asigna el texto leido por el cliente a los TB
         internal void AsignarTB()
@@ -158,19 +210,20 @@ namespace LectorQR
 
         private void EscribirTB() {
             //Incrementamos el nº de códigos leidos
+            
             Ncodigos += 1;
 
             FillNcodigosTB(Convert.ToString(Ncodigos));
 
             if (COD_LEIDO.Contains("ERROR")) COD_LEIDO = "ERROR";
             FillCodLeidoTB(COD_LEIDO);
-            RichTCD_Leido.Text += COD_LEIDO + Environment.NewLine;
 
             switch (COD_LEIDO)
             {
                 case "ERROR":
                     List_Cods.Add(COD_LEIDO);
                     Nerror = Ncodigos - Nok;
+                    FillRichTB("ERROR");
                     FillErrorTB(Convert.ToString(Nerror));
                     break;
 
@@ -181,15 +234,31 @@ namespace LectorQR
                     if (!List_Cods.Contains(COD_LEIDO))
                     {
                         AjustarCodPrecinta(COD_LEIDO);
-                        List_Cods.Add(ExtraerCodigo(COD_LEIDO));
+                        COD_LEIDO = ExtraerCodigo(COD_LEIDO);
+                        if (!List_Cods.Contains(COD_LEIDO)) { 
+                            List_Cods.Add(COD_LEIDO);
+                            FillRichTB(COD_LEIDO);
+                            Nok += 1;
+
+                        }
                     }
-                    Nok += 1;
                     FillOkTB(Convert.ToString(Nok));
                     break;
             }
 
             
         }
+        public void FillRichTB(string value) {
+
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(FillRichTB), new object[] { value });
+                return;
+            }
+            RichTCD_Leido.Text += value + Environment.NewLine;
+        }
+
+
         public void FillTB(string value, TextBox TextBox)
         {
             if (InvokeRequired)
@@ -283,11 +352,14 @@ namespace LectorQR
         {
             if (Convert.ToByte(s[0])==2) {
                 s = s.Substring(1, s.Length-1); }
-            for(int i=0; i<s.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 if (i + 1 < s.Length)
-                    if (s[i] == '=' && s[i+1] == '=')
-                        if(i+2<s.Length) s = s.Substring(0, i+2);
+                    if (s[i] == '=' && s[i + 1] == '=')
+                        if (i + 2 < s.Length)
+                        {
+                            s = s.Substring(0, i + 2);
+                        }
             }
             return s;
         }
@@ -312,15 +384,17 @@ namespace LectorQR
             
             string date = DateTime.Now.ToString("dd-MM-yyyy");
 
-            string namefile = "C:/RegistroPrecintas/PrecintasFiscales"+ OrdenTB.Text + date + ".csv";
+            string namefile = "C:/RegistroPrecintas/PrecintasFiscales." + OrdenTB.Text + "." + date + ".csv";
 
             if (File.Exists(@namefile))
             {
-                if (File.Exists(@"C:/RegistroPrecintas/COPYPrecintasFiscales" + OrdenTB.Text + date + ".csv"))
+                if (Directory.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/CopiasRegistrosFiscales");
+
+                if (File.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscales." + OrdenTB.Text + "."+ date + ".csv"))
                 {
-                    File.Delete("C:/RegistroPrecintas/COPYPrecintasFiscales" + OrdenTB.Text + date + ".csv");
+                    File.Delete("C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscales." + OrdenTB.Text + "." + date + ".csv");
                 }
-                File.Copy(namefile, "C:/RegistroPrecintas/COPYPrecintasFiscales" + OrdenTB.Text + date + ".csv");
+                File.Copy(namefile, "C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscales." + OrdenTB.Text + "." + date + ".csv");
 
                 string s = File.ReadAllText(namefile);
                 s=s.Remove(0,s.IndexOf('\r'));
@@ -383,10 +457,9 @@ namespace LectorQR
 
             if (s.Contains("http"))
             {
-                for (int i=0; s[i] != '='; i++)
-                {
-                    s = s.Remove(0, i);
-                }
+
+                s = s.Remove(0, s.IndexOf('=')+1);
+
                 for (int i = 0; s[i]!='&'; i++)
                 {
                     r += s[i];
@@ -438,16 +511,45 @@ namespace LectorQR
 
 
         }
+        private String ExtraerCodErronea(string s) {
+            string r = "";
+            
+            s = s.Remove(0, s.IndexOf('¡') + 1);
+
+            for (int i = 0; s[i] != '/'; i++)
+            {
+                r += s[i];
+            }
+            return r;
+        }
+        private void ActualizarCodLeidosRTB() {
+            RichTCD_Leido.Text = "";
+            foreach(string s in List_Cods)
+            {
+                RichTCD_Leido.Text += s+Environment.NewLine;
+
+
+            }
+            RichTCD_Leido.Update();
+        }
 
         private void CodigoErroneoTB_KeyDown(object sender, KeyEventArgs e)
         {
+            
             if (copiado_cod_error && CodigoErroneoTB.Text != "") CodigoErroneoTB.Text = ""; copiado_cod_error = false;
             if (e.KeyCode == Keys.Enter)
             {
-                List_Errs.Add(ExtraerCodigo(CodigoErroneoTB.Text));
+                AjustarCodPrecinta(CodigoErroneoTB.Text);
+                string codE = ExtraerCodErronea(CodigoErroneoTB.Text);
+                if(!List_Errs.Contains(codE))List_Errs.Add(codE); 
                 //List_Errs.Add(CodigoErroneoTB.Text);
-                RichTCD_Erroneo.Text += ExtraerCodigo(CodigoErroneoTB.Text) + Environment.NewLine;
-                GuardarErrores();
+                RichTCD_Erroneo.Text += codE + Environment.NewLine;
+                if (List_Cods.Contains(codE))
+                {
+                    List_Cods.Remove(codE);
+                    ActualizarCodLeidosRTB();
+                }
+                   GuardarErrores();
                 copiado_cod_error = true;
             }
         }
