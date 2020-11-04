@@ -58,13 +58,15 @@ namespace LectorQR
             {
                  new PipeClient(this);
             }); ThreadConexion.Start();
-            for(int i = 0; i<10000; i++)
+           /* for (int i = 0; i < 100; i++)
             {
                 timeMeasure = new Stopwatch();
                 timeMeasure.Start();
-                COD_LEIDO = "https://www2.agenciatributaria.gob.es/wlpl/ADMF-JDIT/V?C="+(20030780005+i)+"&T=+XHyxjyFj3mxx3Tldf6l6A==";
+                COD_LEIDO ="https://www2.agenciatributaria.gob.es/wlpl/ADMF-JDIT/V?C=" + ((20030780005) + i) + "&T=+XHyxjyFj3mxx3Tldf6l6A==";
                 EscribirTB();
-
+                if(i%2!=0)List_Errs.Add(ExtraerCodigo(AjustarCodPrecinta("https://www2.agenciatributaria.gob.es/wlpl/ADMF-JDIT/V?C=" + ((20030780005) + i) + "&T=+XHyxjyFj3mxx3Tldf6l6A==")));
+                COD_LEIDO = "https://www2.agenciatributaria.gob.es/wlpl/ADMF-JDIT/V?C=" +((20030780005)+i+1)+"&T=+XHyxjyFj3mxx3Tldf6l6A==";
+                EscribirTB();
                 if (!Guardando)
                 {
                     Guardando = true;
@@ -85,8 +87,8 @@ namespace LectorQR
                     num_bot_per_sec = 0;
                     contador_sec = 0;
                 }
-
-                else {
+                else
+                {
                     contador_sec += timeMeasure.Elapsed.TotalMilliseconds;
                     num_bot_per_sec++;
 
@@ -101,13 +103,9 @@ namespace LectorQR
                     max_tiempo.Add(timeMeasure.Elapsed.TotalMilliseconds);
                 }
                 Console.WriteLine("Tiempo: " + timeMeasure.Elapsed.TotalMilliseconds + " ms");
-            }
-            Console.WriteLine("TIEMPOS COMPROMETIDOS");
-            foreach (double t in max_tiempo) {
-                Console.WriteLine("Tiempo: " +t);
-            }
-            Console.WriteLine("TIEMPO MAXIMO: " + maxT);
-        }
+                
+            }*/
+                  }
         //Función que asigna el texto leido por el cliente a los TB
         internal void AsignarTB()
         {
@@ -117,7 +115,6 @@ namespace LectorQR
             ClienteTB.Text = cliente;
             GradTB.Text = graduacion;
             CapacidadTB.Text = capacidad;
-            NBotTB.Text = botellas;
 
             OrdenTB.ReadOnly = OrdenTB.Text==""? false : true;
             LoteTB.ReadOnly = LoteTB.Text==""? false : true;
@@ -125,21 +122,10 @@ namespace LectorQR
             GradTB.ReadOnly = GradTB.Text==""? false : true;
             ClienteTB.ReadOnly = ClienteTB.Text==""? false : true;
             CapacidadTB.ReadOnly = CapacidadTB.Text==""? false : true;
-            NBotTB.ReadOnly = NBotTB.Text==""? false : true;
         }
 
         //Función que cierra el programa. Si hemos leído algún código, los guarda en un fichero.
-        public void Cerrar()
-        {
-            Inicio = false;
-            if(Ncodigos>0)Guardar();
-            if (s != null) s.Close();
-
-            System.Windows.Forms.Application.Exit();
-            Environment.Exit(0);
-            ThreadConexion.Abort();
-
-        }
+      
         //Función para leer los códigos QR
         public void LeerQR()
         {
@@ -231,17 +217,17 @@ namespace LectorQR
                     break;
 
                 default:
-                    if (!List_Cods.Contains(COD_LEIDO))
-                    {
-                        AjustarCodPrecinta(COD_LEIDO);
-                        COD_LEIDO = ExtraerCodigo(COD_LEIDO);
-                        if (!List_Cods.Contains(COD_LEIDO)) { 
-                            List_Cods.Add(COD_LEIDO);
-                            FillRichTB(COD_LEIDO);
-                            Nok += 1;
+                    //Quitamos los caracteres que introduce la cámara al leer (bandera inicio y fin de texto)
+                    AjustarCodPrecinta(COD_LEIDO);
+                    //Extraemos el código de la precinta en la URL
+                    COD_LEIDO = ExtraerCodigo(COD_LEIDO);
+                    //Añadimos el código a la lista
+                    List_Cods.Add(COD_LEIDO);
+                    //Rellenamos TB
+                    FillRichTB(COD_LEIDO);
+                    //Incrementamos contador
+                    Nok += 1;
 
-                        }
-                    }
                     FillOkTB(Convert.ToString(Nok));
                     break;
             }
@@ -328,8 +314,9 @@ namespace LectorQR
 
         private void StartB_Click(object sender, EventArgs e)
         {
-            if (OrdenTB.Text == "" || LoteTB.Text == "" || ProductoTB.Text == "" || ClienteTB.Text == "" || GradTB.Text == "" || CapacidadTB.Text == "" || NBotTB.Text == "")
+            if (OrdenTB.Text == "" || LoteTB.Text == "" || ProductoTB.Text == "" || ClienteTB.Text == "" || GradTB.Text == "" || CapacidadTB.Text == "")
             {
+                MessageBox.Show("Faltan campos por introducir");
                 VentanaTeclados.AbrirCalculadora(this, OrdenTB);
             }
             else
@@ -343,7 +330,6 @@ namespace LectorQR
                 GradTB.ReadOnly = Inicio;
                 ClienteTB.ReadOnly = Inicio;
                 CapacidadTB.ReadOnly = Inicio;
-                NBotTB.ReadOnly = Inicio;
                 LeerQR();
             }
         }
@@ -363,11 +349,99 @@ namespace LectorQR
             }
             return s;
         }
+        public void SalirPrograma()
+        {
+
+            if (InvokeRequired)
+            {
+                this.SalirPrograma();
+                return;
+            }
+            Environment.Exit(0);
+        }
+
         public void MainLectorQR_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(s!=null)s.Close();
-            Cerrar();
+            ThreadConexion.Abort();
+            Inicio = false;
+            if (Ncodigos > 0) Guardar();
+            if(List_Errs.Count>0) GuardarErrores();
+
+
+            //           System.Windows.Forms.Application.Exit();
+            ThreadConexion.Abort();
+            if (s != null) s.Close();
+
+
+            while (Guardando) { }
+            ProcesarFicherosErroneos();
+            ProcesarFicheros();
+            Environment.Exit(0);
+
         }
+        private void ProcesarFicherosErroneos()
+        {
+            string date = DateTime.Now.ToString("dd-MM-yyyy");
+            string namefile = "C:/RegistroPrecintas/PrecintasFiscalesErroneas." + OrdenTB.Text + "." + date + ".csv";
+            if (File.Exists(@namefile))
+            {
+
+                List<string> aux = new List<string>();
+                string[] lineas = File.ReadAllLines(namefile);
+                List<string> result = new List<string>();
+
+                foreach (string s in List_Errs)
+                {
+                    if (!result.Contains(s))
+                    {
+                        result.Add(s);
+                    }
+                }
+                for (int i = 1; i < File.ReadAllLines(namefile).Length; i++)
+                {
+                    if (!result.Contains(lineas[i]))
+                        result.Add(lineas[i]);
+                }
+                List_Errs.Clear();
+                List_Errs = result;
+                GuardarErrores();
+            }
+        }
+
+        private void ProcesarFicheros()
+        {
+            string date = DateTime.Now.ToString("dd-MM-yyyy");
+            string namefile = "C:/RegistroPrecintas/PrecintasFiscales." + OrdenTB.Text + "." + date + ".csv";
+            if (File.Exists(@namefile))
+            {
+
+                List<string> aux = new List<string>();
+                string[] lineas = File.ReadAllLines(namefile);               
+                List<string> result = new List<string>();
+
+                foreach (string s in List_Cods)
+                {
+                    if (!result.Contains(s))
+                    {
+                        result.Add(s);
+                    }
+                }
+                for (int i = 1; i < File.ReadAllLines(namefile).Length; i++)
+                {
+                    if(!result.Contains(lineas[i]))
+                        result.Add(lineas[i]);
+                }
+
+                List_Cods.Clear();
+                List_Cods = result;
+                foreach(string s in List_Errs)
+                {
+                    if (List_Cods.Contains(s)) List_Cods.Remove(s);
+                }
+                Guardar();            
+            }
+        }
+
         private void Guardar() {
             Guardando = true;
             
@@ -396,17 +470,20 @@ namespace LectorQR
                 }
                 File.Copy(namefile, "C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscales." + OrdenTB.Text + "." + date + ".csv");
 
-                string s = File.ReadAllText(namefile);
+                /*string s = File.ReadAllText(namefile);
                 s=s.Remove(0,s.IndexOf('\r'));
                 File.WriteAllText("temp", aux + s);
                 File.Delete(namefile);
                 File.Copy("temp", namefile);
-                File.Delete("temp");
+                File.Delete("temp");*/
+
             }
             else
             {
-                File.WriteAllText(namefile, aux);
+                //File.WriteAllText(namefile, aux);
             }
+            File.WriteAllText(namefile, aux);
+
             Guardando = false;
         }
         private void GuardarErrores()
@@ -432,23 +509,26 @@ namespace LectorQR
          
             if (File.Exists(@namefile))
             {
-                if (File.Exists(@"C:/RegistroPrecintas/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv"))
+                if (Directory.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/CopiasRegistrosFiscales");
+
+                if (File.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv"))
                 {
-                    File.Delete("C:/RegistroPrecintas/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv");
+                    File.Delete("C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv");
                 }
-                File.Copy(namefile, "C:/RegistroPrecintas/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv");
-                string s = File.ReadAllText(namefile);
+                File.Copy(namefile, "C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv");
+               /* string s = File.ReadAllText(namefile);
                 s = s.Remove(0, s.IndexOf('\r'));
                 File.WriteAllText("temp", aux + s);
                 File.Delete(namefile);
                 File.Copy("temp", namefile);
-                File.Delete("temp");
+                File.Delete("temp");*/
             }
             else
             {//GIT
-                File.WriteAllText(namefile, aux);
+               // File.WriteAllText(namefile, aux);
 
             }
+            File.WriteAllText(namefile, aux);
             Guardando = false;
         }
         private string ExtraerCodigo(string s)
@@ -491,12 +571,6 @@ namespace LectorQR
 
         }
 
-        private void NBotTB_Click(object sender, EventArgs e)
-        {
-            if (!NBotTB.ReadOnly) VentanaTeclados.AbrirCalculadora(this, NBotTB);
-
-
-        }
 
         private void GradTB_Click(object sender, EventArgs e)
         {
@@ -541,14 +615,15 @@ namespace LectorQR
             {
                 AjustarCodPrecinta(CodigoErroneoTB.Text);
                 string codE = ExtraerCodErronea(CodigoErroneoTB.Text);
-                if(!List_Errs.Contains(codE))List_Errs.Add(codE); 
-                //List_Errs.Add(CodigoErroneoTB.Text);
+                List_Errs.Add(codE);
+
                 RichTCD_Erroneo.Text += codE + Environment.NewLine;
-                if (List_Cods.Contains(codE))
+
+                /*if (List_Cods.Contains(codE))
                 {
                     List_Cods.Remove(codE);
                     ActualizarCodLeidosRTB();
-                }
+                }*/
                    GuardarErrores();
                 copiado_cod_error = true;
             }

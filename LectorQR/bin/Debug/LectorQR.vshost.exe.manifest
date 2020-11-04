@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LectorQR.exe" size="182160">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LectorQR.exe" size="181648">
       <assemblyIdentity name="LectorQR" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Xb74lbsIkqIPQaK2+ZeC7UfWwZ/Gon1Q/keHKEE0xDE=</dsig:DigestValue>
+        <dsig:DigestValue>g643o7qYDPCwttku9Z+Imrb1bCEHypIybD1xv49d5k0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
