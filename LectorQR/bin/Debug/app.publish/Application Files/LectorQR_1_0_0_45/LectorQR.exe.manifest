@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="LectorQR.exe" version="1.0.0.45" publicKeyToken="71fe51dc637b633c" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="icono-qrreader.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="LectorQR" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="LectorQR.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LectorQR.exe" size="434576">
+      <assemblyIdentity name="LectorQR" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>X3J2EUmGqi2f0Y/WdEiJMVtRnZDs+KGJi1cujTy3838=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="icono-qrreader.ico" size="251966">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>sIg3+LL7GAFL6z9KoT3ibR6ZDXXmZ6o5h34TwZ/xXsI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="LectorQR.exe.config" size="1039">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>wi/Q4a7MVqIuhdnZSFWaX/LZUji5JeDLz/GSLVoownM=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=BWH\fpa2" issuerKeyHash="3f9d972c5b37b227fb1dcc1eae5563aec74c5907" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>fau3Fvfq1+XmPqI7E+jZGzNauneR4uC/Y3t2CpEJIhs=</DigestValue></Reference></SignedInfo><SignatureValue>I3kGOifVroJ5mB48Jb1vut8IvQkR0J5T0cocIf+lONRKV6IARIygHk9VAl/KYfX4bm1hPFiBzJn+ALxORnS9ewBcrVkuyhD4mdt4lUMXApPlLTjAGO6nzv4TTix8rT5BPvMEdJjaze1/NV2LsjKsBn0jxdvCa1KBd+jBI0PoUaQ=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>v0+e1Ou6A0tOBIhRlOP4PCken1HhBwbuu2mlMfYNmexvUBlwkoekQU1m5HRdKpe/LFjv46aZNsFAeSqy3FZiKbC0F7tv1g9/rCJoqUTiR49PM7ozKvP4eyIZyzmELuh5nA2LPpdOnqsb5lh3Kr2M+kZrpQUml3QLNsfwcg1Kfq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="1b2209910a767b63bfe0e29177ba5a331bd9e8133ba23ee6e5d7eaf716b7ab7d" Description="" Url=""><as:assemblyIdentity name="LectorQR.exe" version="1.0.0.45" publicKeyToken="71fe51dc637b633c" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=BWH\fpa2</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>3DqgkIWvt7BwkOJZIzQdNFj5uR3JjO7m0VIi7L/uELg=</DigestValue></Reference></SignedInfo><SignatureValue>UVw8eMNbYtjueNKDDMvmsLZP3amHX8OTtQ3GUNFPd47jdhw8aKyOvYLDk2uITYMMyqB5iKK/VUUp/tIJdDtwcPS3WgTdbrBevZW9RD/etCLGMaemaSvS/2tJTG7PhUhGqvHM+KUKXzRUY5ZBiruqauKbYCcfbbHiGXzSVetzKRg=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>v0+e1Ou6A0tOBIhRlOP4PCken1HhBwbuu2mlMfYNmexvUBlwkoekQU1m5HRdKpe/LFjv46aZNsFAeSqy3FZiKbC0F7tv1g9/rCJoqUTiR49PM7ozKvP4eyIZyzmELuh5nA2LPpdOnqsb5lh3Kr2M+kZrpQUml3QLNsfwcg1Kfq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBuTCCASKgAwIBAgIQcXV2USBOiYJKM03SXplm2DANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDHhAAQgBXAEgAXABmAHAAYQAyMB4XDTIwMTAyMzA2MjQ0MloXDTIxMTAyMzEyMjQ0MlowGzEZMBcGA1UEAx4QAEIAVwBIAFwAZgBwAGEAMjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAv0+e1Ou6A0tOBIhRlOP4PCken1HhBwbuu2mlMfYNmexvUBlwkoekQU1m5HRdKpe/LFjv46aZNsFAeSqy3FZiKbC0F7tv1g9/rCJoqUTiR49PM7ozKvP4eyIZyzmELuh5nA2LPpdOnqsb5lh3Kr2M+kZrpQUml3QLNsfwcg1Kfq0CAwEAATANBgkqhkiG9w0BAQsFAAOBgQCOu6D9udzi1WguKiBZQvsu5BUQ8CKsdQ07dJQmXdVG8EfAnFiC2XRpb7XgPIlbkjTkBHBd6qDDwOINWkKUXnx5NBkABcc/emO3IomQk8Dx4mLXX32haDDDZgLFNYBBSnhnliyWHCEVZc706x/juizX8Tb5If1b2XYXh3GXwgm8Mg==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

@@ -118,3 +118,6 @@ C:\Users\Gonzalo\source\repos\LectorQR\LectorQR\LectorQR\obj\Debug\LectorQR.Vent
 C:\Users\Gonzalo\source\repos\LectorQR\LectorQR\LectorQR\obj\Debug\LectorQR.csproj.GenerateResource.Cache
 C:\Users\Gonzalo\source\repos\LectorQR\LectorQR\LectorQR\obj\Debug\LectorQR.exe.manifest
 C:\Users\Gonzalo\source\repos\LectorQR\LectorQR\LectorQR\obj\Debug\LectorQR.application
+C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\bin\Debug\LectorQR.exe.config
+C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.exe
+C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.pdb
