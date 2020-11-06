@@ -388,6 +388,7 @@ namespace LectorQR
                         result.Add(lineas[i]);
                 }
 
+
                 List_Cods.Clear();
                 List_Cods = result;
                 foreach (string s in List_Errs)
