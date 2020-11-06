@@ -125,7 +125,6 @@ C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\bin\Debug\LectorQR.ex
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\bin\Debug\LectorQR.application
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\bin\Debug\LectorQR.exe
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\bin\Debug\LectorQR.pdb
-C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.csprojResolveAssemblyReference.cache
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.KeyBoard.resources
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.MainLectorQR.resources
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.numberpad.resources
@@ -134,3 +133,4 @@ C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.Ve
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.csproj.GenerateResource.Cache
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.exe.manifest
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.application
+C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.csprojResolveAssemblyReference.cache

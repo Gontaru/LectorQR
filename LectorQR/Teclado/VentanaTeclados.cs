@@ -63,6 +63,22 @@ namespace LectorQR
                                         num_tb++;
                                     }
                                 }
+                                if (c3.Controls.Count > 0)
+                                {
+                                    foreach (Control c4 in c3.Controls)
+                                    {
+                                        if (c4.GetType().ToString() == "System.Windows.Forms.TextBox")
+                                        {
+                                            tb = c4 as TextBox;
+                                            if (tb.ReadOnly == false && !aux.Contains(tb))
+                                            {
+
+                                                aux.Add(tb);
+                                                num_tb++;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -374,55 +390,73 @@ namespace LectorQR
         
         private void button10_Click(object sender, EventArgs e)
         {
-            
-            if(tb_visitados.Count == num_tb)
+
+            if (tb_visitados.Count == num_tb)
             {
                 tb_visitados.Clear();
             }
 
-            TextBox tb=new TextBox();
+            TextBox tb = new TextBox();
             bool asignado = false;
-            foreach (Control c in this.padre.Controls){
-              
-                    if (c.Controls.Count > 0 && !asignado)
-                    {
-                        foreach (Control c2 in c.Controls)
-                        {
-                            if (c2.GetType().ToString() == "System.Windows.Forms.TextBox" && !asignado)
-                            {
-                                tb = c2 as TextBox;
-                                if (tb.ReadOnly == false && tb.Visible == true && !tb_visitados.Contains(tb) && tb.Name != text_box_obj.Name)
-                                {
-                                    setTB(tb);
-                                    asignado = true;
-                                    break;
-                                }
-                            }
+            foreach (Control c in this.padre.Controls)
+            {
 
-                            if(c2.Controls.Count > 0 && !asignado)
+                if (c.Controls.Count > 0 && !asignado)
+                {
+                    foreach (Control c2 in c.Controls)
+                    {
+                        if (c2.GetType().ToString() == "System.Windows.Forms.TextBox" && !asignado)
+                        {
+                            tb = c2 as TextBox;
+                            if (tb.ReadOnly == false && tb.Visible == true && !tb_visitados.Contains(tb) && tb.Name != text_box_obj.Name)
                             {
-                                foreach (Control c3 in c2.Controls)
+                                setTB(tb);
+                                asignado = true;
+                                break;
+                            }
+                        }
+
+                        if (c2.Controls.Count > 0 && !asignado)
+                        {
+                            foreach (Control c3 in c2.Controls)
+                            {
+                                if (c3.GetType().ToString() == "System.Windows.Forms.TextBox" && !asignado)
                                 {
-                                    if (c3.GetType().ToString() == "System.Windows.Forms.TextBox" && !asignado)
+                                    tb = c3 as TextBox;
+                                    if (tb.ReadOnly == false && tb.Visible == true && !tb_visitados.Contains(tb) && tb.Name != text_box_obj.Name)
                                     {
-                                        tb = c3 as TextBox;
-                                        if (tb.ReadOnly == false && tb.Visible == true && !tb_visitados.Contains(tb) && tb.Name != text_box_obj.Name)
+                                        setTB(tb);
+                                        asignado = true;
+                                        break;
+                                    }
+                                }
+                                if (c3.Controls.Count > 0 && !asignado)
+                                {
+                                    foreach (Control c4 in c3.Controls)
+                                    {
+                                        if (c4.GetType().ToString() == "System.Windows.Forms.TextBox" && !asignado)
                                         {
-                                            setTB(tb);
-                                            asignado = true;
-                                            break;
+                                            tb = c4 as TextBox;
+                                            if (tb.ReadOnly == false && tb.Visible == true && !tb_visitados.Contains(tb) && tb.Name != text_box_obj.Name)
+                                            {
+                                                setTB(tb);
+                                                asignado = true;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                    
-                }
-                
-            }
-            
 
-          
+                        }
+                    }
+
+                }
+
+            }
+
+
+
 
         }
 

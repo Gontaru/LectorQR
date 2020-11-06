@@ -22,11 +22,10 @@ namespace LectorQR
                         pipeClient.Connect();
 
                 });T1.Start();
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(2000);
                 if (!pipeClient.IsConnected) {
 
-                    MessageBox.Show("NO NOS HEMOS CONECTADO");
-
+                    MessageBox.Show("NO SE HA EFECTUACO LA CONEXIÓN CON LA APP WHPST. INTRODUZCA MANUALMENTE LOS CAMPOS MOSTRADOS EN PANTALLA.");
                 }
 
                 else
@@ -60,12 +59,12 @@ namespace LectorQR
             using (NamedPipeClientStream pipeClient =
                new NamedPipeClientStream(".", "testpipe", PipeDirection.InOut))
             {
-                pipeClient.Connect();
+                 pipeClient.Connect();
 
                 StreamReader sr = new StreamReader(pipeClient);
 
                 while ((sr.ReadLine()) != "true") { }
-                parent.Cerrar();
+                parent.MainLectorQR_FormClosing(this, new FormClosingEventArgs (CloseReason.UserClosing, false));
             }
         }
     }
