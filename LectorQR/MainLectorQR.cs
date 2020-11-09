@@ -16,6 +16,7 @@ using System.Windows.Forms;
 
 namespace LectorQR
 {
+    //  09/11/2020
     
     public partial class MainLectorQR : Form
     {
