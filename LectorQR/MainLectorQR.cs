@@ -16,6 +16,7 @@ using System.Windows.Forms;
 
 namespace LectorQR
 {
+    //  09/11/2020
     
     public partial class MainLectorQR : Form
     {
@@ -387,6 +388,7 @@ namespace LectorQR
                     if (!result.Contains(lineas[i]))
                         result.Add(lineas[i]);
                 }
+
 
                 List_Cods.Clear();
                 List_Cods = result;
