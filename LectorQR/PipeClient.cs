@@ -25,11 +25,13 @@ namespace LectorQR
                 System.Threading.Thread.Sleep(2000);
                 if (!pipeClient.IsConnected) {
 
-                    MessageBox.Show("NO SE HA EFECTUACO LA CONEXIÓN CON LA APP WHPST. INTRODUZCA MANUALMENTE LOS CAMPOS MOSTRADOS EN PANTALLA.");
+                    parent.FillPipeClientLB("PipeClient: No Conected");
                 }
 
                 else
                 {
+                    parent.FillPipeClientLB("PipeClient: Conected!");
+
                     try
                     {
                         StreamWriter sw = new StreamWriter(pipeClient);

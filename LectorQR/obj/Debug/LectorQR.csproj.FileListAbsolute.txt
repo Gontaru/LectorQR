@@ -134,3 +134,10 @@ C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.cs
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.exe.manifest
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.application
 C:\PROYECTOS_WHPST\LectorQR - 2020-10-27\LectorQR\LectorQR\obj\Debug\LectorQR.csprojResolveAssemblyReference.cache
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\bin\Debug\LectorQR.exe.manifest
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\bin\Debug\LectorQR.application
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\obj\Debug\LectorQR.KeyBoard.resources
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\obj\Debug\LectorQR.numberpad.resources
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\obj\Debug\LectorQR.VentanaTeclados.resources
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\obj\Debug\LectorQR.exe.manifest
+C:\Users\Gonzalo\Source\Repos\LectorQR\LectorQR\obj\Debug\LectorQR.application
