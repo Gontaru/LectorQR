@@ -41,7 +41,7 @@ namespace LectorQR
         static List<string> List_Errs = new List<string>();
         Socket s;
 
-        IPAddress localAddr = IPAddress.Parse("192.168.100.10");
+        IPAddress localAddr = IPAddress.Parse("169.254.206.231");
         //TcpListener myList = new TcpListener(IPAddress.Any, 8010);
         public bool Inicio = false;
         private bool copiado_cod_error;

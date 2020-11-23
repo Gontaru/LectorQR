@@ -51,6 +51,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.panelImagen = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RichTCD_Leido = new System.Windows.Forms.RichTextBox();
@@ -64,12 +65,11 @@
             this.CodigoLeidoTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.PanelBarraDown = new System.Windows.Forms.Panel();
+            this.ExitB = new System.Windows.Forms.Button();
             this.StartB = new System.Windows.Forms.Button();
             this.panelBarraTop = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panelImagen = new System.Windows.Forms.Panel();
-            this.ExitB = new System.Windows.Forms.Button();
             this.panelMainLectorQR.SuspendLayout();
             this.panelfill.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -339,6 +339,16 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Orden:";
             // 
+            // panelImagen
+            // 
+            this.panelImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelImagen.BackgroundImage = global::LectorQR.Properties.Resources.logo;
+            this.panelImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelImagen.Location = new System.Drawing.Point(412, 36);
+            this.panelImagen.Name = "panelImagen";
+            this.panelImagen.Size = new System.Drawing.Size(188, 179);
+            this.panelImagen.TabIndex = 11;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox2);
@@ -493,6 +503,20 @@
             this.PanelBarraDown.Size = new System.Drawing.Size(1008, 106);
             this.PanelBarraDown.TabIndex = 14;
             // 
+            // ExitB
+            // 
+            this.ExitB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExitB.BackgroundImage = global::LectorQR.Properties.Resources.MenuApagar;
+            this.ExitB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ExitB.FlatAppearance.BorderSize = 0;
+            this.ExitB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitB.Location = new System.Drawing.Point(930, 26);
+            this.ExitB.Name = "ExitB";
+            this.ExitB.Size = new System.Drawing.Size(66, 64);
+            this.ExitB.TabIndex = 8;
+            this.ExitB.UseVisualStyleBackColor = true;
+            this.ExitB.Click += new System.EventHandler(this.ExitB_Click);
+            // 
             // StartB
             // 
             this.StartB.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -531,30 +555,6 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "WILLIAMS && HUMBERT QR READER";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelImagen
-            // 
-            this.panelImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelImagen.BackgroundImage = global::LectorQR.Properties.Resources.logo;
-            this.panelImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panelImagen.Location = new System.Drawing.Point(412, 36);
-            this.panelImagen.Name = "panelImagen";
-            this.panelImagen.Size = new System.Drawing.Size(188, 179);
-            this.panelImagen.TabIndex = 11;
-            // 
-            // ExitB
-            // 
-            this.ExitB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExitB.BackgroundImage = global::LectorQR.Properties.Resources.MenuApagar;
-            this.ExitB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ExitB.FlatAppearance.BorderSize = 0;
-            this.ExitB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExitB.Location = new System.Drawing.Point(930, 26);
-            this.ExitB.Name = "ExitB";
-            this.ExitB.Size = new System.Drawing.Size(66, 64);
-            this.ExitB.TabIndex = 8;
-            this.ExitB.UseVisualStyleBackColor = true;
-            this.ExitB.Click += new System.EventHandler(this.ExitB_Click);
             // 
             // MainLectorQR
             // 

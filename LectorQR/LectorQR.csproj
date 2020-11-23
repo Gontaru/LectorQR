@@ -60,7 +60,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icono-qrreader.ico</ApplicationIcon>
+    <ApplicationIcon>icono-qrreader %282%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -159,7 +159,7 @@
     <None Include="Resources\MenuApagar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icono-qrreader.ico" />
+    <Content Include="icono-qrreader %282%29.ico" />
     <None Include="Resources\icono-qrreader.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
