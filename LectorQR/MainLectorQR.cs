@@ -12,8 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//15-12-2020
-
 
 //Leemos todas las precintas Pi de un taco T (0<=i<=500)
 //Leemos todos los tacos Ti (0<=i<=TacosaProducir)
