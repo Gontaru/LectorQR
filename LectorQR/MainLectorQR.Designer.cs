@@ -39,9 +39,15 @@
             this.panelMainLectorQR = new System.Windows.Forms.Panel();
             this.panelfill = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.precintas_RTB = new System.Windows.Forms.ListView();
+            this.panel_red = new System.Windows.Forms.Panel();
+            this.portTB = new System.Windows.Forms.TextBox();
+            this.ipTB = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.precintas_RTB = new System.Windows.Forms.RichTextBox();
-            this.panelImagen = new System.Windows.Forms.Panel();
             this.PipeClientLB = new System.Windows.Forms.Label();
             this.OrdenTB = new System.Windows.Forms.TextBox();
             this.LoteTB = new System.Windows.Forms.TextBox();
@@ -68,24 +74,33 @@
             this.CodigoLeidoTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelBarraTop = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
+            this.TituloLB = new System.Windows.Forms.Label();
             this.PanelBarraDown = new System.Windows.Forms.Panel();
+            this.incremento_precintas_panel = new System.Windows.Forms.Panel();
+            this.incremento_diez = new System.Windows.Forms.Button();
+            this.incremento_uno = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
             this.comprobacion_tacos_button = new System.Windows.Forms.Button();
             this.registrar_taco = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.ExitB = new System.Windows.Forms.Button();
             this.StartB = new System.Windows.Forms.Button();
             this.taco_introducidoTB = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panelImagen = new System.Windows.Forms.Panel();
+            this.NuevaOrdenB = new System.Windows.Forms.Button();
+            this.configuracionB = new System.Windows.Forms.Button();
+            this.ExitB = new System.Windows.Forms.Button();
             this.panelMainLectorQR.SuspendLayout();
             this.panelfill.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel_red.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panelBarraTop.SuspendLayout();
             this.PanelBarraDown.SuspendLayout();
+            this.incremento_precintas_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // NCodigosTB
@@ -196,8 +211,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.precintas_RTB);
+            this.groupBox1.Controls.Add(this.panel_red);
+            this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.panelImagen);
             this.groupBox1.Controls.Add(this.PipeClientLB);
             this.groupBox1.Controls.Add(this.OrdenTB);
@@ -227,6 +243,92 @@
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             // 
+            // precintas_RTB
+            // 
+            this.precintas_RTB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.precintas_RTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.precintas_RTB.ForeColor = System.Drawing.Color.Yellow;
+            this.precintas_RTB.Location = new System.Drawing.Point(41, 141);
+            this.precintas_RTB.Name = "precintas_RTB";
+            this.precintas_RTB.Size = new System.Drawing.Size(285, 220);
+            this.precintas_RTB.TabIndex = 31;
+            this.precintas_RTB.UseCompatibleStateImageBehavior = false;
+            this.precintas_RTB.Click += new System.EventHandler(this.precintas_RTB_Click);
+            // 
+            // panel_red
+            // 
+            this.panel_red.BackColor = System.Drawing.Color.DarkGray;
+            this.panel_red.Controls.Add(this.portTB);
+            this.panel_red.Controls.Add(this.ipTB);
+            this.panel_red.Controls.Add(this.button1);
+            this.panel_red.Controls.Add(this.label20);
+            this.panel_red.Controls.Add(this.label19);
+            this.panel_red.Controls.Add(this.label18);
+            this.panel_red.Location = new System.Drawing.Point(1624, 112);
+            this.panel_red.Name = "panel_red";
+            this.panel_red.Size = new System.Drawing.Size(250, 287);
+            this.panel_red.TabIndex = 16;
+            this.panel_red.Visible = false;
+            // 
+            // portTB
+            // 
+            this.portTB.Location = new System.Drawing.Point(88, 140);
+            this.portTB.Name = "portTB";
+            this.portTB.Size = new System.Drawing.Size(150, 22);
+            this.portTB.TabIndex = 12;
+            // 
+            // ipTB
+            // 
+            this.ipTB.Location = new System.Drawing.Point(88, 72);
+            this.ipTB.Name = "ipTB";
+            this.ipTB.Size = new System.Drawing.Size(150, 22);
+            this.ipTB.TabIndex = 11;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(69, 179);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 30);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Aceptar";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(13, 140);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(70, 20);
+            this.label20.TabIndex = 2;
+            this.label20.Text = "Puerto:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(13, 75);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(69, 20);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Dir. IP:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(-5, 9);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(262, 25);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Configuración conexiones";
+            // 
             // label16
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -238,30 +340,6 @@
             this.label16.Size = new System.Drawing.Size(303, 46);
             this.label16.TabIndex = 28;
             this.label16.Text = "Tacos añadidos";
-            // 
-            // precintas_RTB
-            // 
-            this.precintas_RTB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.precintas_RTB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.precintas_RTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.precintas_RTB.ForeColor = System.Drawing.Color.Yellow;
-            this.precintas_RTB.Location = new System.Drawing.Point(59, 139);
-            this.precintas_RTB.Name = "precintas_RTB";
-            this.precintas_RTB.ReadOnly = true;
-            this.precintas_RTB.Size = new System.Drawing.Size(250, 241);
-            this.precintas_RTB.TabIndex = 27;
-            this.precintas_RTB.Text = "";
-            // 
-            // panelImagen
-            // 
-            this.panelImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelImagen.BackgroundImage = global::LectorQR.Properties.Resources.logo;
-            this.panelImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panelImagen.Location = new System.Drawing.Point(828, 141);
-            this.panelImagen.Margin = new System.Windows.Forms.Padding(4);
-            this.panelImagen.Name = "panelImagen";
-            this.panelImagen.Size = new System.Drawing.Size(251, 220);
-            this.panelImagen.TabIndex = 11;
             // 
             // PipeClientLB
             // 
@@ -581,7 +659,7 @@
             this.panelBarraTop.AutoScroll = true;
             this.panelBarraTop.AutoSize = true;
             this.panelBarraTop.BackColor = System.Drawing.Color.Maroon;
-            this.panelBarraTop.Controls.Add(this.label5);
+            this.panelBarraTop.Controls.Add(this.TituloLB);
             this.panelBarraTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelBarraTop.Location = new System.Drawing.Point(0, 0);
             this.panelBarraTop.Margin = new System.Windows.Forms.Padding(4);
@@ -589,24 +667,27 @@
             this.panelBarraTop.Size = new System.Drawing.Size(1902, 58);
             this.panelBarraTop.TabIndex = 12;
             // 
-            // label5
+            // TituloLB
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Maroon;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(499, 4);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(851, 54);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "WILLIAMS && HUMBERT QR READER";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+            this.TituloLB.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TituloLB.AutoSize = true;
+            this.TituloLB.BackColor = System.Drawing.Color.Maroon;
+            this.TituloLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TituloLB.ForeColor = System.Drawing.Color.White;
+            this.TituloLB.Location = new System.Drawing.Point(499, 4);
+            this.TituloLB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TituloLB.Name = "TituloLB";
+            this.TituloLB.Size = new System.Drawing.Size(851, 54);
+            this.TituloLB.TabIndex = 10;
+            this.TituloLB.Text = "WILLIAMS && HUMBERT QR READER";
+            this.TituloLB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TituloLB.Click += new System.EventHandler(this.TituloLB_Click);
             // 
             // PanelBarraDown
             // 
+            this.PanelBarraDown.Controls.Add(this.NuevaOrdenB);
+            this.PanelBarraDown.Controls.Add(this.configuracionB);
+            this.PanelBarraDown.Controls.Add(this.incremento_precintas_panel);
             this.PanelBarraDown.Controls.Add(this.comprobacion_tacos_button);
             this.PanelBarraDown.Controls.Add(this.registrar_taco);
             this.PanelBarraDown.Controls.Add(this.label12);
@@ -619,6 +700,56 @@
             this.PanelBarraDown.Name = "PanelBarraDown";
             this.PanelBarraDown.Size = new System.Drawing.Size(1902, 130);
             this.PanelBarraDown.TabIndex = 14;
+            // 
+            // incremento_precintas_panel
+            // 
+            this.incremento_precintas_panel.BackColor = System.Drawing.Color.DarkGray;
+            this.incremento_precintas_panel.Controls.Add(this.incremento_diez);
+            this.incremento_precintas_panel.Controls.Add(this.incremento_uno);
+            this.incremento_precintas_panel.Controls.Add(this.label17);
+            this.incremento_precintas_panel.Location = new System.Drawing.Point(646, 11);
+            this.incremento_precintas_panel.Name = "incremento_precintas_panel";
+            this.incremento_precintas_panel.Size = new System.Drawing.Size(292, 100);
+            this.incremento_precintas_panel.TabIndex = 14;
+            this.incremento_precintas_panel.Visible = false;
+            // 
+            // incremento_diez
+            // 
+            this.incremento_diez.BackColor = System.Drawing.Color.White;
+            this.incremento_diez.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.incremento_diez.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.incremento_diez.Location = new System.Drawing.Point(170, 29);
+            this.incremento_diez.Margin = new System.Windows.Forms.Padding(4);
+            this.incremento_diez.Name = "incremento_diez";
+            this.incremento_diez.Size = new System.Drawing.Size(75, 65);
+            this.incremento_diez.TabIndex = 14;
+            this.incremento_diez.Text = "10";
+            this.incremento_diez.UseVisualStyleBackColor = false;
+            this.incremento_diez.Click += new System.EventHandler(this.incremento_diez_Click);
+            // 
+            // incremento_uno
+            // 
+            this.incremento_uno.BackColor = System.Drawing.Color.White;
+            this.incremento_uno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.incremento_uno.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.incremento_uno.Location = new System.Drawing.Point(23, 29);
+            this.incremento_uno.Margin = new System.Windows.Forms.Padding(4);
+            this.incremento_uno.Name = "incremento_uno";
+            this.incremento_uno.Size = new System.Drawing.Size(75, 65);
+            this.incremento_uno.TabIndex = 13;
+            this.incremento_uno.Text = "1";
+            this.incremento_uno.UseVisualStyleBackColor = false;
+            this.incremento_uno.Click += new System.EventHandler(this.incremento_uno_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(9, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(280, 25);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "¿Incremento de la precinta?";
             // 
             // comprobacion_tacos_button
             // 
@@ -656,27 +787,12 @@
             this.label12.TabIndex = 11;
             this.label12.Text = "Comprobacion de tacos:";
             // 
-            // ExitB
-            // 
-            this.ExitB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExitB.BackgroundImage = global::LectorQR.Properties.Resources.MenuApagar;
-            this.ExitB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ExitB.FlatAppearance.BorderSize = 0;
-            this.ExitB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExitB.Location = new System.Drawing.Point(1798, 32);
-            this.ExitB.Margin = new System.Windows.Forms.Padding(4);
-            this.ExitB.Name = "ExitB";
-            this.ExitB.Size = new System.Drawing.Size(88, 79);
-            this.ExitB.TabIndex = 8;
-            this.ExitB.UseVisualStyleBackColor = true;
-            this.ExitB.Click += new System.EventHandler(this.ExitB_Click);
-            // 
             // StartB
             // 
             this.StartB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.StartB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StartB.Location = new System.Drawing.Point(856, 26);
+            this.StartB.Location = new System.Drawing.Point(1052, 26);
             this.StartB.Margin = new System.Windows.Forms.Padding(4);
             this.StartB.Name = "StartB";
             this.StartB.Size = new System.Drawing.Size(187, 79);
@@ -692,6 +808,62 @@
             this.taco_introducidoTB.Size = new System.Drawing.Size(10, 22);
             this.taco_introducidoTB.TabIndex = 13;
             this.taco_introducidoTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.taco_introducidoTB_KeyDown);
+            // 
+            // panelImagen
+            // 
+            this.panelImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelImagen.BackgroundImage = global::LectorQR.Properties.Resources.logo;
+            this.panelImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelImagen.Location = new System.Drawing.Point(828, 141);
+            this.panelImagen.Margin = new System.Windows.Forms.Padding(4);
+            this.panelImagen.Name = "panelImagen";
+            this.panelImagen.Size = new System.Drawing.Size(251, 220);
+            this.panelImagen.TabIndex = 11;
+            // 
+            // NuevaOrdenB
+            // 
+            this.NuevaOrdenB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NuevaOrdenB.BackgroundImage = global::LectorQR.Properties.Resources.add_file;
+            this.NuevaOrdenB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.NuevaOrdenB.FlatAppearance.BorderSize = 0;
+            this.NuevaOrdenB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NuevaOrdenB.Location = new System.Drawing.Point(1584, 32);
+            this.NuevaOrdenB.Margin = new System.Windows.Forms.Padding(4);
+            this.NuevaOrdenB.Name = "NuevaOrdenB";
+            this.NuevaOrdenB.Size = new System.Drawing.Size(88, 79);
+            this.NuevaOrdenB.TabIndex = 16;
+            this.NuevaOrdenB.UseVisualStyleBackColor = true;
+            this.NuevaOrdenB.Click += new System.EventHandler(this.NuevaOrdenB_Click);
+            // 
+            // configuracionB
+            // 
+            this.configuracionB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.configuracionB.BackgroundImage = global::LectorQR.Properties.Resources.settings;
+            this.configuracionB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.configuracionB.FlatAppearance.BorderSize = 0;
+            this.configuracionB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.configuracionB.Location = new System.Drawing.Point(1693, 32);
+            this.configuracionB.Margin = new System.Windows.Forms.Padding(4);
+            this.configuracionB.Name = "configuracionB";
+            this.configuracionB.Size = new System.Drawing.Size(88, 79);
+            this.configuracionB.TabIndex = 15;
+            this.configuracionB.UseVisualStyleBackColor = true;
+            this.configuracionB.Click += new System.EventHandler(this.configuracionB_Click);
+            // 
+            // ExitB
+            // 
+            this.ExitB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExitB.BackgroundImage = global::LectorQR.Properties.Resources.MenuApagar;
+            this.ExitB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ExitB.FlatAppearance.BorderSize = 0;
+            this.ExitB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitB.Location = new System.Drawing.Point(1798, 32);
+            this.ExitB.Margin = new System.Windows.Forms.Padding(4);
+            this.ExitB.Name = "ExitB";
+            this.ExitB.Size = new System.Drawing.Size(88, 79);
+            this.ExitB.TabIndex = 8;
+            this.ExitB.UseVisualStyleBackColor = true;
+            this.ExitB.Click += new System.EventHandler(this.ExitB_Click);
             // 
             // MainLectorQR
             // 
@@ -710,6 +882,8 @@
             this.panelfill.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel_red.ResumeLayout(false);
+            this.panel_red.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -719,6 +893,8 @@
             this.panelBarraTop.PerformLayout();
             this.PanelBarraDown.ResumeLayout(false);
             this.PanelBarraDown.PerformLayout();
+            this.incremento_precintas_panel.ResumeLayout(false);
+            this.incremento_precintas_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -735,7 +911,7 @@
         private System.Windows.Forms.Button StartB;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox CodigoLeidoTB;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label TituloLB;
         private System.Windows.Forms.Panel panelImagen;
         private System.Windows.Forms.Panel panelBarraTop;
         private System.Windows.Forms.Panel PanelBarraDown;
@@ -770,7 +946,20 @@
         private System.Windows.Forms.Button registrar_taco;
         private System.Windows.Forms.TextBox taco_introducidoTB;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.RichTextBox precintas_RTB;
+        private System.Windows.Forms.Panel incremento_precintas_panel;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button incremento_diez;
+        private System.Windows.Forms.Button incremento_uno;
+        private System.Windows.Forms.Button configuracionB;
+        private System.Windows.Forms.Panel panel_red;
+        private System.Windows.Forms.TextBox portTB;
+        private System.Windows.Forms.TextBox ipTB;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ListView precintas_RTB;
+        private System.Windows.Forms.Button NuevaOrdenB;
     }
 }
 
