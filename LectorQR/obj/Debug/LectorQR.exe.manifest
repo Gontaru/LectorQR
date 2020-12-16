@@ -43,24 +43,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LectorQR.exe" size="651664">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LectorQR.exe" size="7877008">
       <assemblyIdentity name="LectorQR" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lyEeyjNOXbkf5SxHvm6+JhZ3E5R3OdZBVbSBbZOYhF0=</dsig:DigestValue>
+        <dsig:DigestValue>4KR6Qb08IUihzfd8v7hsrYYgiWa/kncPxtnIlN1Yr9c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="icono-qrreader.ico" size="251966">
+  <file name="icono-qrreader.ico" size="2494878">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>sIg3+LL7GAFL6z9KoT3ibR6ZDXXmZ6o5h34TwZ/xXsI=</dsig:DigestValue>
+      <dsig:DigestValue>vb+cqZomJoUvKsABOH2HTyrvojI+KjgMsSZZHTJ32gY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="LectorQR.exe.config" size="1039">

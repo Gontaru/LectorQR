@@ -185,10 +185,7 @@ namespace LectorQR
                                 COD_LEIDO = COD_LEIDO.Remove(k - 1, COD_LEIDO.Length - k + 1);
 
                                 //Escribimos en el RichTB 
-                                Thread Escritura = new Thread(() =>
-                                {
-                                    EscribirTB();
-                                }); Escritura.Start();
+                                EscribirTB();
 
                                 //Si está activada la comprobación de tacos entramos aqui
                                 if (comprobacion_tacos)
@@ -206,7 +203,7 @@ namespace LectorQR
                                             {
                                                 //Console.WriteLine("Fila : " + i + " cod:" + COD_LEIDO);
                                                 matriz_precintas[i].Add(precinta_leida);
-                                                if (matriz_precintas[i].Count == 500) ;
+                                                if (matriz_precintas[i].Count == 500);
                                                 break;
                                             }
 
@@ -346,6 +343,7 @@ namespace LectorQR
 
             string aux = "";
             string time = DateTime.Now.ToString("hh:mm:ss");
+            aux += "Datos del pedido; Orden: " + OrdenTB.Text + " Lote: " + LoteTB.Text + " Producto: " + ProductoTB.Text + " Cliente: " + ClienteTB.Text + " Graduacion: " + GradTB.Text + " Capacidad: " + CapacidadTB.Text + Environment.NewLine;
             aux += "Precintas buenas leídas: " + Nok + " Número de errores " + Nerror + " " + time + Environment.NewLine;
             for (int i = 0; i < List_Cods.Count; i++)
             {
@@ -675,8 +673,6 @@ namespace LectorQR
             if (Ncodigos > 0) Guardar();
             if (List_Errs.Count > 0) GuardarEliminadas();
 
-
-            //           System.Windows.Forms.Application.Exit();
             if (s != null) s.Close();
             if (List_Errs.Count > 0) ProcesarFicherosErroneos();
             if (Ncodigos > 0) ProcesarFicheros();
