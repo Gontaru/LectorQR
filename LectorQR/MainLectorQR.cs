@@ -104,6 +104,7 @@ namespace LectorQR
             //CONEXION CON LA APP WHPST
             ThreadConexion = new Thread(() => { new PipeClient(this); });
             ThreadConexion.Start();
+            contraseniaTB.PasswordChar ='*';
             /*
             //FUNCION QUE PERMITE REALIZAR UNA PRUEBA
             comprobacion_tacos = true;
@@ -120,11 +121,7 @@ namespace LectorQR
             TesteoLectura();
             Thread.Sleep(100);
             ProcesarFicheros();*/
-            List_Cods.Add("12498142");
-            List_Cods.Add("55555555");
-            Nok++;
-            Nerror++;
-            Ncodigos++;
+           
         }
 
         private void StartB_Click(object sender, EventArgs e)
@@ -352,6 +349,7 @@ namespace LectorQR
             Guardando = true;
             string aux = "";
             string time = DateTime.Now.ToString("hh:mm:ss");
+            aux += "Datos del pedido; Orden: " + OrdenTB.Text + " Lote: " + LoteTB.Text + " Producto: " + ProductoTB.Text + " Cliente: " + ClienteTB.Text + " Graduacion: " + GradTB.Text + " Capacidad: " + CapacidadTB.Text + Environment.NewLine;
             aux += "Precintas buenas leidas: " + (List_Cods.Count - Nerror)+ " Numero de errores: " + Nerror + " " + time + Environment.NewLine;
             for (int i = 0; i < List_Cods.Count; i++)
             {
@@ -412,6 +410,7 @@ namespace LectorQR
 
             string aux = "";
             string time = DateTime.Now.ToString("hh:mm:ss");
+            aux += "Datos del pedido; Orden: " + OrdenTB.Text + " Lote: " + LoteTB.Text + " Producto: " + ProductoTB.Text + " Cliente: " + ClienteTB.Text + " Graduacion: " + GradTB.Text + " Capacidad: " + CapacidadTB.Text + Environment.NewLine;
 
             aux += "Ultima escritura: " + time + Environment.NewLine;
             for (int i = 0; i < List_Errs.Count; i++)
@@ -814,10 +813,13 @@ namespace LectorQR
 
         private void configuracionB_Click(object sender, EventArgs e)
         {
-            ipTB.Text = IP;
-            portTB.Text = Convert.ToString(port);
+            
+                ipTB.Text = IP;
+                portTB.Text = Convert.ToString(port);
+                panel_red.Visible = (panel_red.Visible) ? false : true;
+                contraseniaTB.Text = "";
 
-            panel_red.Visible = (panel_red.Visible) ? false : true;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -825,20 +827,25 @@ namespace LectorQR
             panel_red.Visible = false;
             bool haycambios = false;
 
-            if (ipTB.Text != IP)
-            {
-                IP = ipTB.Text;
-                localAddr = IPAddress.Parse(IP);
-                haycambios = true;
-            }
-            if (Convert.ToInt32(portTB.Text) != port)
-            {
-                port = Convert.ToInt32(portTB.Text);
-                haycambios = true;
-            }
+            if (contraseniaTB.Text=="1PP0RT") {
+                if (ipTB.Text != IP)
+                {
+                    IP = ipTB.Text;
+                    localAddr = IPAddress.Parse(IP);
+                    haycambios = true;
+                }
+                if (Convert.ToInt32(portTB.Text) != port)
+                {
+                    port = Convert.ToInt32(portTB.Text);
+                    haycambios = true;
+                }
 
-            if (haycambios) myList = new TcpListener(localAddr, port);
-
+                if (haycambios) myList = new TcpListener(localAddr, port);
+            }
+            else
+            {
+                MessageBox.Show("Contraseña incorrecta");
+            }
         }
 
         private void precintas_RTB_Click(object sender, EventArgs e)
@@ -902,17 +909,32 @@ namespace LectorQR
         {
             if (!Inicio)
             {
-                OrdenTB.Text = "";
-                LoteTB.Text = "";
-                ProductoTB.Text = "";
-                ClienteTB.Text = "";
-                GradTB.Text = "";
-                CapacidadTB.Text = "";
-                NCodigosTB.Text = "0";
-                OkTB.Text = "0";
-                ErrorTB.Text = "0";
+                DialogResult dialogResult = MessageBox.Show("Se van a borrar todos los datos del registro actual ¿Desea continuar?", "Borrado registro", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    CodigoErroneoTB.Text = "";
+                    CodigoLeidoTB.Text = "";
+                    OrdenTB.Text = "";
+                    LoteTB.Text = "";
+                    ProductoTB.Text = "";
+                    ClienteTB.Text = "";
+                    GradTB.Text = "";
+                    CapacidadTB.Text = "";
+                    NCodigosTB.Text = "0";
+                    OkTB.Text = "0";
+                    ErrorTB.Text = "0";
+                    List_Cods.Clear();
+                    List_Errs.Clear();
+                    List_Perdidos.Clear();
+                    RichTCD_Erroneo.Clear();
+                    RichTCD_Leido.Clear();
+                    precintas_RTB.Clear();
+                }
+               
+                
             }
         }
+
 
 
         //----------------------- PRUEBA ------------------
