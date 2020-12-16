@@ -134,6 +134,7 @@ namespace LectorQR
                 Inicio = (Inicio) ? false : true;
                 StartB.Text = (Inicio) ? "Start" : "Pause";
                 StartB.BackColor = (Inicio) ? Color.DarkSeaGreen : Color.IndianRed;
+                NuevaOrdenB.Enabled = (Inicio) ? false : true;
                 OrdenTB.ReadOnly = Inicio;
                 LoteTB.ReadOnly = Inicio;
                 ProductoTB.ReadOnly = Inicio;
@@ -162,82 +163,83 @@ namespace LectorQR
                 //Si el botón de start ha sido pulsado, no paramos de leer códigos
                 Thread main = new Thread(() =>
                 {
+                    //for(int i = 0; i<Dns.GetHostEntry(Dns.GetHostName()).AddressList.Length; i++)
+                    //{ Console.WriteLine(Dns.GetHostEntry(Dns.GetHostName()).AddressList[i]); }
+                 
                     while (Inicio)
                     {
-                        myList.Start();
+                      
+                            myList.Start();
 
-                        try
-                        {
-                            se_escritura.WaitOne();
-
-                            s = myList.AcceptSocket();
-
-                            //Guardamos en b los bytes recibidos
-                            byte[] b = new byte[128];
-                            int k = s.Receive(b);
-                            for (int i = 0; i < k; i++) Console.Write(Convert.ToChar(b[i]));
-                            if ((b[0] == 2 && b[k - 1] == 3) || (b[0] == 33 && b[k - 1] == 33) )
+                            try
                             {
-                                //ASCIIEncoding asen = new ASCIIEncoding();
-                                COD_LEIDO = "";
-                                //convertimos los bytes a string
-                                COD_LEIDO = getString(b);
-                                COD_LEIDO = COD_LEIDO.Remove(k - 1, COD_LEIDO.Length - k + 1);
+                                se_escritura.WaitOne();
+                                s = myList.AcceptSocket();
 
-                                //Escribimos en el RichTB 
-                                Thread Escritura = new Thread(() =>
+                                //Guardamos en b los bytes recibidos
+                                byte[] b = new byte[128];
+                                int k = s.Receive(b);
+                                for (int i = 0; i < k; i++) Console.Write(Convert.ToChar(b[i]));
+                                if ((b[0] == 2 && b[k - 1] == 3) || (b[0] == 33 && b[k - 1] == 33))
                                 {
+                                    //ASCIIEncoding asen = new ASCIIEncoding();
+                                    COD_LEIDO = "";
+                                    //convertimos los bytes a string
+                                    COD_LEIDO = getString(b);
+                                    COD_LEIDO = COD_LEIDO.Remove(k - 1, COD_LEIDO.Length - k + 1);
+
+                                    //Escribimos en el RichTB 
                                     EscribirTB();
-                                }); Escritura.Start();
 
-                                //Si está activada la comprobación de tacos entramos aqui
-                                if (comprobacion_tacos)
+                                    //Si está activada la comprobación de tacos entramos aqui
+                                    if (comprobacion_tacos)
 
-                                {
-                                    long precinta_leida = Convert.ToInt64(AjustarCodPrecinta(COD_LEIDO));
-                                    for (int i = 0; i < primeros_cods_tacos.Count; i++)
                                     {
-                                        //Comprobamos a qué taco pertenece el código leído
-                                        if ((primeros_cods_tacos[i].primer_cod <= precinta_leida) &&
-                                        precinta_leida <= (primeros_cods_tacos[i].primer_cod + (primeros_cods_tacos[i].tipo_incremento * 500)))
+                                        long precinta_leida = Convert.ToInt64(AjustarCodPrecinta(COD_LEIDO));
+                                        for (int i = 0; i < primeros_cods_tacos.Count; i++)
                                         {
-                                            //Si el código no pertenece al set correspondiente, lo añadimos                        
-                                            if (!matriz_precintas[i].Contains(precinta_leida))
+                                            //Comprobamos a qué taco pertenece el código leído
+                                            if ((primeros_cods_tacos[i].primer_cod <= precinta_leida) &&
+                                            precinta_leida <= (primeros_cods_tacos[i].primer_cod + (primeros_cods_tacos[i].tipo_incremento * 500)))
                                             {
-                                                //Console.WriteLine("Fila : " + i + " cod:" + COD_LEIDO);
-                                                matriz_precintas[i].Add(precinta_leida);
-                                                if (matriz_precintas[i].Count == 500) ;
-                                                break;
-                                            }
+                                                //Si el código no pertenece al set correspondiente, lo añadimos                        
+                                                if (!matriz_precintas[i].Contains(precinta_leida))
+                                                {
+                                                    //Console.WriteLine("Fila : " + i + " cod:" + COD_LEIDO);
+                                                    matriz_precintas[i].Add(precinta_leida);
+                                                    if (matriz_precintas[i].Count == 500) ;
+                                                    break;
+                                                }
 
+                                            }
                                         }
+
                                     }
 
                                 }
+                                se_escritura.Release();
+
+                                //si no estamos guardando, realizamos un guardado para no perder los datos                              
+                                if (!Guardando)
+                                {
+                                    se_guardado.WaitOne();
+                                    Guardar();
+                                    se_guardado.Release();
+                                }
+                                Console.Read();
+                                s.Close();
+                                myList.Stop();
+
+
 
                             }
-                            se_escritura.Release();
-
-                            //si no estamos guardando, realizamos un guardado para no perder los datos                              
-                            if (!Guardando)
+                            catch (Exception e)
                             {
-                                se_guardado.WaitOne();
+                                MessageBox.Show("Fallo en la conexión con la camara");
                                 Guardar();
-                                se_guardado.Release();
                             }
-                            Console.Read();
-                            s.Close();
-                            myList.Stop();
-
-
-
                         }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show("Fallo en la conexión con la camara");
-                            Guardar();
-                        }
-                    }
+                    
 
                 }); main.Start();
             }
@@ -343,10 +345,9 @@ namespace LectorQR
         private void Guardar()
         {
             Guardando = true;
-
             string aux = "";
             string time = DateTime.Now.ToString("hh:mm:ss");
-            aux += "Precintas buenas leídas: " + Nok + " Número de errores " + Nerror + " " + time + Environment.NewLine;
+            aux += "Precintas buenas leidas: " + (List_Cods.Count - Nerror)+ " Numero de errores: " + Nerror + " " + time + Environment.NewLine;
             for (int i = 0; i < List_Cods.Count; i++)
             {
                 if (i == List_Cods.Count - 1) aux += List_Cods[i];
@@ -357,27 +358,45 @@ namespace LectorQR
             }
 
 
-
+            //Si no hay directorio raiz dónde guardamos los registros de las precintas(es decir, no se encuentra ningún registro), creamos directorio
             if (Directory.Exists(@"C:/RegistroPrecintas") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/");
-
+            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas") == false) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
             string date = DateTime.Now.ToString("dd-MM-yyyy");
 
-            string namefile = "C:/RegistroPrecintas/PrecintasFiscales." + OrdenTB.Text + "." + date + ".csv";
-            string copyfile = "C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscales." + OrdenTB.Text + "." + date + ".csv";
+            //creamos un subdirectorio para el registro actual
+            string subdirectorio = "C:/RegistroPrecintas/" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
+            string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
+            if (!Directory.Exists(subdirectorio)) Directory.CreateDirectory(subdirectorio);
+            if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
 
-            if (File.Exists(@namefile))
+            //nombre de los ficheros
+            string namefile = "PrecintasFiscales." + ProductoTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
+            string copyfile = "COPYPrecintasFiscales." + ProductoTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
+
+            if (File.Exists(@subdirectorio+namefile))
             {
-                if (Directory.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/CopiasRegistrosFiscales");
 
-                if (File.Exists(@copyfile))
+                if (File.Exists(@subdirectorio+copyfile))
                 {
-                    File.Delete(copyfile);
+                    File.Delete(subdirectorio+copyfile);
                 }
-                File.Copy(namefile, copyfile);
+                File.Copy(subdirectorio+namefile, subdirectorio+copyfile);
+                File.Delete(subdirectorio + namefile);
 
             }
+            if (File.Exists(subdirectorioRED + namefile))
+            {
+                if (File.Exists(@subdirectorioRED + copyfile))
+                {
+                    File.Delete(subdirectorioRED + copyfile);
+                }
+                File.Copy(subdirectorioRED + namefile, subdirectorioRED + copyfile);
+                File.Delete(subdirectorioRED + namefile);
 
-            File.WriteAllText(namefile, aux);
+
+            }
+            File.WriteAllText(subdirectorio+namefile, aux);
+            File.WriteAllText(subdirectorioRED+namefile, aux);
 
             Guardando = false;
         }
@@ -395,31 +414,49 @@ namespace LectorQR
                 if (i == List_Errs.Count - 1) aux += List_Errs[i];
                 else aux += List_Errs[i] + Environment.NewLine;
             }
-
+            //Si no hay directorio raiz dónde guardamos los registros de las precintas(es decir, no se encuentra ningún registro), creamos directorio
             if (Directory.Exists(@"C:/RegistroPrecintas") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/");
+            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas") == false) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
+
 
             string date = DateTime.Now.ToString("dd-MM-yyyy");
-            string namefile;
+            //creamos un subdirectorio para el registro actual
+            string subdirectorio = "C:/RegistroPrecintas/"+ ProductoTB.Text + "." + OrdenTB.Text + date + "/";
+            string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
 
-            namefile = "C:/RegistroPrecintas/PrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv";
+            if (!Directory.Exists(subdirectorio)) Directory.CreateDirectory(subdirectorio);
+            if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
 
-            if (File.Exists(@namefile))
+            //nombre de los ficheros
+            string namefile = "PrecintasFiscalesErroneas"+ ProductoTB.Text + "." + OrdenTB.Text + date + ".csv";
+            string copyfile = "COPYPrecintasFiscalesErroneas" + ProductoTB.Text + "." + OrdenTB.Text + date + ".csv";
+
+            if (File.Exists(@subdirectorio+namefile))
             {
-                if (Directory.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/CopiasRegistrosFiscales");
 
-                if (File.Exists(@"C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv"))
+                if (File.Exists(@subdirectorio + copyfile))
                 {
-                    File.Delete("C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv");
+                    File.Delete(subdirectorio + copyfile);
                 }
-                File.Copy(namefile, "C:/RegistroPrecintas/CopiasRegistrosFiscales/COPYPrecintasFiscalesErroneas" + OrdenTB.Text + date + ".csv");
+                File.Copy(subdirectorio + namefile, subdirectorio + copyfile);
+                File.Delete(subdirectorio + namefile);
 
             }
-            else
-            {//GIT
-             // File.WriteAllText(namefile, aux);
+
+            if (File.Exists(@subdirectorioRED + namefile))
+            {
+
+                if (File.Exists(@subdirectorioRED + copyfile))
+                {
+                    File.Delete(subdirectorioRED + copyfile);
+                }
+                File.Copy(subdirectorioRED + namefile, subdirectorioRED + copyfile);
+                File.Delete(subdirectorioRED + namefile);
 
             }
-            File.WriteAllText(namefile, aux);
+            File.WriteAllText(subdirectorio+namefile, aux);
+            File.WriteAllText(subdirectorioRED + namefile, aux);
+
             Guardando = false;
         }
 
@@ -454,8 +491,6 @@ namespace LectorQR
         }
         private void ProcesarFicheros()
         {
-
-
             string date = DateTime.Now.ToString("dd-MM-yyyy");
             string namefile = "C:/RegistroPrecintas/PrecintasFiscales." + OrdenTB.Text + "." + date + ".csv";
 
@@ -472,10 +507,8 @@ namespace LectorQR
                 //Añadimos los códigos leídos a result, comprobando de no añadir duplicados.
                 foreach (string s in List_Cods)
                 {
-
                     if (!result.Contains(s))
                     {
-
                         result.Add(s);
                     }
                 }
@@ -484,11 +517,9 @@ namespace LectorQR
                 for (int i = 1; i < File.ReadAllLines(namefile).Length; i++)
                 {
                     if (!result.Contains(lineas[i]))
-
                         result.Add(lineas[i]);
                 }
-
-
+                
                 List_Cods.Clear();
                 List_Cods = result;
 
