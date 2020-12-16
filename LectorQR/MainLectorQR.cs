@@ -120,6 +120,11 @@ namespace LectorQR
             TesteoLectura();
             Thread.Sleep(100);
             ProcesarFicheros();*/
+            List_Cods.Add("12498142");
+            List_Cods.Add("55555555");
+            Nok++;
+            Nerror++;
+            Ncodigos++;
         }
 
         private void StartB_Click(object sender, EventArgs e)
@@ -360,18 +365,18 @@ namespace LectorQR
 
             //Si no hay directorio raiz dónde guardamos los registros de las precintas(es decir, no se encuentra ningún registro), creamos directorio
             if (Directory.Exists(@"C:/RegistroPrecintas") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/");
-            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas") == false) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
+            if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas")) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
             string date = DateTime.Now.ToString("dd-MM-yyyy");
 
             //creamos un subdirectorio para el registro actual
-            string subdirectorio = "C:/RegistroPrecintas/" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
-            string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
-            if (!Directory.Exists(subdirectorio)) Directory.CreateDirectory(subdirectorio);
-            if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
+            string subdirectorio = "C:/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
+            string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
+            if (!Directory.Exists(subdirectorio)) Directory.CreateDirectory (subdirectorio);
+            if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory (subdirectorioRED);
 
             //nombre de los ficheros
-            string namefile = "PrecintasFiscales." + ProductoTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
-            string copyfile = "COPYPrecintasFiscales." + ProductoTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
+            string namefile = "PrecintasFiscales." + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
+            string copyfile = "COPYPrecintasFiscales." + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
 
             if (File.Exists(@subdirectorio+namefile))
             {
@@ -396,7 +401,7 @@ namespace LectorQR
 
             }
             File.WriteAllText(subdirectorio+namefile, aux);
-            File.WriteAllText(subdirectorioRED+namefile, aux);
+            if (Directory.Exists(@"//10.10.10.11/")) File.WriteAllText(subdirectorioRED+namefile, aux);
 
             Guardando = false;
         }
@@ -464,12 +469,14 @@ namespace LectorQR
         private void ProcesarFicherosErroneos()
         {
             string date = DateTime.Now.ToString("dd-MM-yyyy");
-            string namefile = "C:/RegistroPrecintas/PrecintasFiscalesErroneas." + OrdenTB.Text + "." + date + ".csv";
-            if (File.Exists(@namefile))
+            string namefile = "PrecintasFiscales." + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
+            string subdirectorio = "C:/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
+
+            if (File.Exists(@subdirectorio+namefile))
             {
 
                 List<string> aux = new List<string>();
-                string[] lineas = File.ReadAllLines(namefile);
+                string[] lineas = File.ReadAllLines(subdirectorio + namefile);
                 List<string> result = new List<string>();
 
                 foreach (string s in List_Errs)
@@ -479,7 +486,7 @@ namespace LectorQR
                         result.Add(s);
                     }
                 }
-                for (int i = 1; i < File.ReadAllLines(namefile).Length; i++)
+                for (int i = 1; i < File.ReadAllLines(subdirectorio + namefile).Length; i++)
                 {
                     if (!result.Contains(lineas[i]))
                         result.Add(lineas[i]);
@@ -492,15 +499,16 @@ namespace LectorQR
         private void ProcesarFicheros()
         {
             string date = DateTime.Now.ToString("dd-MM-yyyy");
-            string namefile = "C:/RegistroPrecintas/PrecintasFiscales." + OrdenTB.Text + "." + date + ".csv";
+            string namefile = "PrecintasFiscales." + ProductoTB.Text + "." + LoteTB.Text +"." + OrdenTB.Text + "." + date + ".csv";
+            string subdirectorio = "C:/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text+ "." + OrdenTB.Text + date + "/";
 
             //Si el fichero existe lo abrimos
-            if (File.Exists(@namefile))
+            if (File.Exists(@subdirectorio+namefile))
             {
                 //Creamos lista de string auxiliar
                 List<string> aux = new List<string>();
                 //Array de string que almacena los datos leidos del fichero
-                string[] lineas = File.ReadAllLines(namefile);
+                string[] lineas = File.ReadAllLines(subdirectorio + namefile);
                 //Lista de string con el resultado de unir los strings de List_Cods y el fichero
                 List<string> result = new List<string>();
 
@@ -514,7 +522,7 @@ namespace LectorQR
                 }
 
                 //Comprobamos que en la lista result no falte algún código que esté en el fichero
-                for (int i = 1; i < File.ReadAllLines(namefile).Length; i++)
+                for (int i = 1; i < File.ReadAllLines(subdirectorio + namefile).Length; i++)
                 {
                     if (!result.Contains(lineas[i]))
                         result.Add(lineas[i]);
