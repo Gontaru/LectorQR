@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="LectorQR.exe.manifest" size="4028">
+    <dependentAssembly dependencyType="install" codebase="LectorQR.exe.manifest" size="3957">
       <assemblyIdentity name="LectorQR.exe" version="1.0.0.50" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VOG0CG0KkFqA8wgCy0AjvcHTclNp8HvtGY1tZEJidN4=</dsig:DigestValue>
+        <dsig:DigestValue>UGv5NYdUdE8XtNXG1CTlag4kWP2XROPvOFH3LFfEjJQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
