@@ -168,11 +168,9 @@ namespace LectorQR
                 //Si el botón de start ha sido pulsado, no paramos de leer códigos
                 Thread main = new Thread(() =>
                 {
-                     while (Inicio)
+                    while (Inicio)
                     {
-                      
-                            myList.Start();
-
+                        myList.Start();
                             try
                             {
                                 se_escritura.WaitOne();
@@ -208,7 +206,7 @@ namespace LectorQR
                                                 if (!matriz_precintas[i].Contains(precinta_leida))
                                                 {
                                                     matriz_precintas[i].Add(precinta_leida);
-                                                    if (matriz_precintas[i].Count == 500) precintas_RTB.Items[i].ForeColor = Color.DarkSeaGreen ;
+                                                    if (matriz_precintas[i].Count == 500) precintas_RTB.Items[i].ForeColor = Color.DarkSeaGreen;
                                                     break;
                                                 }
 
@@ -240,9 +238,11 @@ namespace LectorQR
                                 Guardar();
                             }
                         }
-                    
 
+                    
                 }); main.Start();
+
+
             }
         }
 
