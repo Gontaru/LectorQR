@@ -26,6 +26,7 @@ namespace LectorQR
 
     public partial class MainLectorQR : Form
     {
+
         public struct primerCod_and_incremento
         {
             public long primer_cod;
@@ -41,7 +42,7 @@ namespace LectorQR
         //public List<SortedSet<int>> matriz_precintas = new List<SortedSet<int>>();
         //Matriz dónde almacenaremos los códigos de las precintas, cada fila de la matriz es un taco distinto
         public List<HashSet<long>> matriz_precintas = new List<HashSet<long>>();
-        //Lista con los primeros códigos de cada taco (en cada taco hay 500 códigos) y el incremento que tiene
+        //Lista con los primeros códigos de cada taco (en cada taco hay 500 códigos) y el tipo de incremento que tiene
         public List<primerCod_and_incremento> primeros_cods_tacos = new List<primerCod_and_incremento>();
         //Semáforo para los threads, asegura que un thread no intente guardar si otro lo está haciendo
         static Semaphore se_guardado = new Semaphore(1, 1);
@@ -105,10 +106,11 @@ namespace LectorQR
             ThreadConexion = new Thread(() => { new PipeClient(this); });
             ThreadConexion.Start();
             contraseniaTB.PasswordChar ='*';
+            precintas_RTB.View = View.List;
             /*
             //FUNCION QUE PERMITE REALIZAR UNA PRUEBA
             comprobacion_tacos = true;
-            precintas_RTB.View = View.List;
+            ;
          
             precintas_RTB.Items.Add("20030780005"+Environment.NewLine);
             precintas_RTB.Items.Add("20030888805" + Environment.NewLine);
@@ -121,7 +123,7 @@ namespace LectorQR
             TesteoLectura();
             Thread.Sleep(100);
             ProcesarFicheros();*/
-           
+
         }
 
         private void StartB_Click(object sender, EventArgs e)
@@ -165,10 +167,7 @@ namespace LectorQR
                 //Si el botón de start ha sido pulsado, no paramos de leer códigos
                 Thread main = new Thread(() =>
                 {
-                    //for(int i = 0; i<Dns.GetHostEntry(Dns.GetHostName()).AddressList.Length; i++)
-                    //{ Console.WriteLine(Dns.GetHostEntry(Dns.GetHostName()).AddressList[i]); }
-                 
-                    while (Inicio)
+                     while (Inicio)
                     {
                       
                             myList.Start();
@@ -207,9 +206,8 @@ namespace LectorQR
                                                 //Si el código no pertenece al set correspondiente, lo añadimos                        
                                                 if (!matriz_precintas[i].Contains(precinta_leida))
                                                 {
-                                                    //Console.WriteLine("Fila : " + i + " cod:" + COD_LEIDO);
                                                     matriz_precintas[i].Add(precinta_leida);
-                                                    if (matriz_precintas[i].Count == 500) ;
+                                                    if (matriz_precintas[i].Count == 500) precintas_RTB.Items[i].ForeColor = Color.DarkSeaGreen ;
                                                     break;
                                                 }
 
@@ -746,11 +744,9 @@ namespace LectorQR
                 AjustarCodPrecinta(taco_introducidoTB.Text);
                 string aux_taco = ExtraerCodErronea(taco_introducidoTB.Text);
 
-                //añadimos el código introducido a la lista de los primeros códigos de cada taco
+                precintas_RTB.Items.Add(aux_taco,Environment.NewLine);
 
-                // checkedListBox1.Items.Add(aux_taco);
-                precintas_RTB.Text += aux_taco + Environment.NewLine;
-
+                //añadimos el primer código del taco a la lista primeros_cods_tacos con el tipo de incremento asociado
                 if (incremento_uno.BackColor == Color.DarkSeaGreen)
                 {
                     primeros_cods_tacos.Add(new primerCod_and_incremento(Convert.ToInt64(aux_taco), 1));
@@ -772,6 +768,7 @@ namespace LectorQR
                 aux_taco = "";
 
             }
+            
 
 
         }
@@ -810,6 +807,7 @@ namespace LectorQR
             taco_introducidoTB.Select();
 
         }
+
 
         private void configuracionB_Click(object sender, EventArgs e)
         {
