@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,7 +62,7 @@ namespace LectorQR
 
         //booleano para controlar si estamos guardando
         bool Guardando = false;
-
+        bool red = false;
         //código obtenido tras la lectura
         static string COD_LEIDO = "";
 
@@ -102,6 +104,7 @@ namespace LectorQR
         {
 
             InitializeComponent();
+            checkBox1.Checked = true;
             //CONEXION CON LA APP WHPST
             ThreadConexion = new Thread(() => { new PipeClient(this); });
             ThreadConexion.Start();
@@ -118,9 +121,9 @@ namespace LectorQR
             matriz_precintas.Add(new HashSet<long>());
             primeros_cods_tacos.Add(new primerCod_and_incremento(20030780005,1));
             primeros_cods_tacos.Add(new primerCod_and_incremento(20030888805, 1));
-
-            TesteoLectura();
-            Thread.Sleep(100);*/
+            */
+          // TesteoLectura();
+           // Thread.Sleep(100);
 
         }
 
@@ -391,8 +394,10 @@ namespace LectorQR
             }
 
             File.WriteAllText(subdirectorio + namefile, aux);
+            //System.Security.AccessControl.DirectorySecurity.
+            Console.WriteLine(Directory.Exists(@"//10.10.10.11/compartidas/WHPST"));
+            if (red &&Directory.Exists(@"//10.10.10.11/compartidas/WHPST")) {
 
-            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST")) {
                 if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas")) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
                 string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
                 if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
@@ -455,7 +460,7 @@ namespace LectorQR
             }
             File.WriteAllText(subdirectorio + namefile, aux);
 
-            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/"))
+            if (red && Directory.Exists(@"//10.10.10.11/compartidas/WHPST/"))
             {
                 if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas") == false) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
                 string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + "CODIGOS_ERRONEOS" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
@@ -949,6 +954,11 @@ namespace LectorQR
             }
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            red = (red) ? false : true;
+        }
+
 
 
         //----------------------- PRUEBA ------------------
@@ -1093,6 +1103,9 @@ namespace LectorQR
             // });
 
         }
+        
 
     }
+
+
 }
