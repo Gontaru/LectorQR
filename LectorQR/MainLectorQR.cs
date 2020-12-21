@@ -107,22 +107,20 @@ namespace LectorQR
             ThreadConexion.Start();
             contraseniaTB.PasswordChar ='*';
             precintas_RTB.View = View.List;
-            /*
+            /*comprobacion_tacos = true;
+
+            
             //FUNCION QUE PERMITE REALIZAR UNA PRUEBA
-            comprobacion_tacos = true;
-            ;
          
             precintas_RTB.Items.Add("20030780005"+Environment.NewLine);
             precintas_RTB.Items.Add("20030888805" + Environment.NewLine);
             matriz_precintas.Add(new HashSet<long>());
             matriz_precintas.Add(new HashSet<long>());
-            primeros_cods_tacos.Add( new primerCod_and_incremento(20030780005,1));
+            primeros_cods_tacos.Add(new primerCod_and_incremento(20030780005,1));
             primeros_cods_tacos.Add(new primerCod_and_incremento(20030888805, 1));
 
-            matriz_precintas.Add(new HashSet<long>());
             TesteoLectura();
-            Thread.Sleep(100);
-            ProcesarFicheros();*/
+            Thread.Sleep(100);*/
 
         }
 
@@ -245,8 +243,6 @@ namespace LectorQR
             }
         }
 
-
-
         //-------------------------- FUNCIONES LEERQR ----------------------
         //CONVERTIDOR DEL ARRAY APORTADO POR LA CAMARA A STRING
         public String getString(byte[] text)
@@ -305,7 +301,6 @@ namespace LectorQR
         private void EscribirTB()
         {
             //Incrementamos el nº de códigos leidos
-
             Ncodigos += 1;
 
             FillNcodigosTB(Convert.ToString(Ncodigos));
@@ -349,6 +344,18 @@ namespace LectorQR
             string time = DateTime.Now.ToString("hh:mm:ss");
             aux += "Datos del pedido; Orden: " + OrdenTB.Text + " Lote: " + LoteTB.Text + " Producto: " + ProductoTB.Text + " Cliente: " + ClienteTB.Text + " Graduacion: " + GradTB.Text + " Capacidad: " + CapacidadTB.Text + Environment.NewLine;
             aux += "Precintas buenas leidas: " + (List_Cods.Count - Nerror)+ " Numero de errores: " + Nerror + " " + time + Environment.NewLine;
+
+            if (matriz_precintas.Count > 0)
+            {
+
+                for(int i = 0; i<matriz_precintas.Count; ++i)
+                {
+                    string linea = "Del taco: "+ primeros_cods_tacos[i].primer_cod + " faltan: "+(500-matriz_precintas[i].Count) + " códigos" +Environment.NewLine;
+                    
+                    aux += linea;
+                }
+
+            }
             for (int i = 0; i < List_Cods.Count; i++)
             {
                 if (i == List_Cods.Count - 1) aux += List_Cods[i];
@@ -361,15 +368,12 @@ namespace LectorQR
 
             //Si no hay directorio raiz dónde guardamos los registros de las precintas(es decir, no se encuentra ningún registro), creamos directorio
             if (Directory.Exists(@"C:/RegistroPrecintas") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/");
-            if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas")) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
             string date = DateTime.Now.ToString("dd-MM-yyyy");
 
             //creamos un subdirectorio para el registro actual
             string subdirectorio = "C:/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
-            string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
             if (!Directory.Exists(subdirectorio)) Directory.CreateDirectory (subdirectorio);
-            if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory (subdirectorioRED);
-
+           
             //nombre de los ficheros
             string namefile = "PrecintasFiscales." + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
             string copyfile = "COPYPrecintasFiscales." + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + "." + date + ".csv";
@@ -385,20 +389,27 @@ namespace LectorQR
                 File.Delete(subdirectorio + namefile);
 
             }
-            if (File.Exists(subdirectorioRED + namefile))
-            {
-                if (File.Exists(@subdirectorioRED + copyfile))
+
+            File.WriteAllText(subdirectorio + namefile, aux);
+
+            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST")) {
+                if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas")) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
+                string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + LoteTB.Text + "." + OrdenTB.Text + date + "/";
+                if (Directory.Exists(@"//10.10.10.11/")) if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
+
+                if (File.Exists(subdirectorioRED + namefile))
                 {
-                    File.Delete(subdirectorioRED + copyfile);
+                    if (File.Exists(@subdirectorioRED + copyfile))
+                    {
+                        File.Delete(subdirectorioRED + copyfile);
+                    }
+                    File.Copy(subdirectorioRED + namefile, subdirectorioRED + copyfile);
+                    File.Delete(subdirectorioRED + namefile);
+
+
                 }
-                File.Copy(subdirectorioRED + namefile, subdirectorioRED + copyfile);
-                File.Delete(subdirectorioRED + namefile);
-
-
+                if (Directory.Exists(@"//10.10.10.11/")) File.WriteAllText(subdirectorioRED + namefile, aux);
             }
-            File.WriteAllText(subdirectorio+namefile, aux);
-            if (Directory.Exists(@"//10.10.10.11/")) File.WriteAllText(subdirectorioRED+namefile, aux);
-
             Guardando = false;
         }
         //Guardamos en un fichero los códigos de las precintas eliminadas con la pistola
@@ -418,16 +429,14 @@ namespace LectorQR
             }
             //Si no hay directorio raiz dónde guardamos los registros de las precintas(es decir, no se encuentra ningún registro), creamos directorio
             if (Directory.Exists(@"C:/RegistroPrecintas") == false) Directory.CreateDirectory(@"C:/RegistroPrecintas/");
-            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas") == false) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
+           
 
 
             string date = DateTime.Now.ToString("dd-MM-yyyy");
             //creamos un subdirectorio para el registro actual
-            string subdirectorio = "C:/RegistroPrecintas/"+ ProductoTB.Text + "." + OrdenTB.Text + date + "/";
-            string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
+            string subdirectorio = "C:/RegistroPrecintas/"+ "CODIGOS_ERRONEOS" +ProductoTB.Text + "." + OrdenTB.Text + date + "/";
 
             if (!Directory.Exists(subdirectorio)) Directory.CreateDirectory(subdirectorio);
-            if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
 
             //nombre de los ficheros
             string namefile = "PrecintasFiscalesErroneas"+ ProductoTB.Text + "." + OrdenTB.Text + date + ".csv";
@@ -444,21 +453,28 @@ namespace LectorQR
                 File.Delete(subdirectorio + namefile);
 
             }
+            File.WriteAllText(subdirectorio + namefile, aux);
 
-            if (File.Exists(@subdirectorioRED + namefile))
+            if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/"))
             {
+                if (Directory.Exists(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas") == false) Directory.CreateDirectory(@"//10.10.10.11/compartidas/WHPST/RegistroPrecintas/");
+                string subdirectorioRED = "//10.10.10.11/compartidas/WHPST/RegistroPrecintas/" + "CODIGOS_ERRONEOS" + ProductoTB.Text + "." + OrdenTB.Text + date + "/";
+                if (!Directory.Exists(subdirectorioRED)) Directory.CreateDirectory(subdirectorioRED);
 
-                if (File.Exists(@subdirectorioRED + copyfile))
+                if (File.Exists(@subdirectorioRED + namefile))
                 {
-                    File.Delete(subdirectorioRED + copyfile);
+
+                    if (File.Exists(@subdirectorioRED + copyfile))
+                    {
+                        File.Delete(subdirectorioRED + copyfile);
+                    }
+                    File.Copy(subdirectorioRED + namefile, subdirectorioRED + copyfile);
+                    File.Delete(subdirectorioRED + namefile);
+
                 }
-                File.Copy(subdirectorioRED + namefile, subdirectorioRED + copyfile);
-                File.Delete(subdirectorioRED + namefile);
 
+                File.WriteAllText(subdirectorioRED + namefile, aux);
             }
-            File.WriteAllText(subdirectorio+namefile, aux);
-            File.WriteAllText(subdirectorioRED + namefile, aux);
-
             Guardando = false;
         }
 
@@ -977,15 +993,6 @@ namespace LectorQR
                 }
 
 
-                if (!Guardando)
-                {
-                    Guardando = true;
-                    Thread T2 = new Thread(() =>
-                    {
-                        Guardar();
-                    }); T2.Start();
-                }
-                timeMeasure.Stop();
 
 
                 if (contador_sec >= 1000)
