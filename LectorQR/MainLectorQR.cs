@@ -122,7 +122,7 @@ namespace LectorQR
             primeros_cods_tacos.Add(new primerCod_and_incremento(20030780005,1));
             primeros_cods_tacos.Add(new primerCod_and_incremento(20030888805, 1));
             */
-          // TesteoLectura();
+           //TesteoLectura();
            // Thread.Sleep(100);
 
         }
@@ -346,7 +346,7 @@ namespace LectorQR
             string aux = "";
             string time = DateTime.Now.ToString("hh:mm:ss");
             aux += "Datos del pedido; Orden: " + OrdenTB.Text + " Lote: " + LoteTB.Text + " Producto: " + ProductoTB.Text + " Cliente: " + ClienteTB.Text + " Graduacion: " + GradTB.Text + " Capacidad: " + CapacidadTB.Text + Environment.NewLine;
-            aux += "Precintas buenas leidas: " + (List_Cods.Count - Nerror)+ " Numero de errores: " + Nerror + " " + time + Environment.NewLine;
+            aux += "Precintas buenas leidas: " + Nok+ " Numero de errores: " + Nerror + " " + time + Environment.NewLine;
 
             if (matriz_precintas.Count > 0)
             {
@@ -496,6 +496,7 @@ namespace LectorQR
                 List<string> aux = new List<string>();
                 string[] lineas = File.ReadAllLines(subdirectorio + namefile);
                 List<string> result = new List<string>();
+                lineas[1] = "";
 
                 foreach (string s in List_Errs)
                 {
@@ -529,7 +530,7 @@ namespace LectorQR
                 string[] lineas = File.ReadAllLines(subdirectorio + namefile);
                 //Lista de string con el resultado de unir los strings de List_Cods y el fichero
                 List<string> result = new List<string>();
-
+                lineas[1] = "";
                 //Añadimos los códigos leídos a result, comprobando de no añadir duplicados.
                 foreach (string s in List_Cods)
                 {
@@ -545,7 +546,7 @@ namespace LectorQR
                     if (!result.Contains(lineas[i]))
                         result.Add(lineas[i]);
                 }
-                
+                Nok = result.Count-1;
                 List_Cods.Clear();
                 List_Cods = result;
 
@@ -796,10 +797,7 @@ namespace LectorQR
 
         private void ExitB_Click(object sender, EventArgs e)
         {
-            if (!Guardando)
-            {
-                MainLectorQR_FormClosing(this, new FormClosingEventArgs(CloseReason.UserClosing, false));
-            }
+            this.Close();
         }
 
         private void TituloLB_Click(object sender, EventArgs e)
@@ -972,7 +970,7 @@ namespace LectorQR
                 timeMeasure.Start();
                 COD_LEIDO = Convert.ToString((20030780005) + i);
                 EscribirTB();
-                if (i % 2 != 0) List_Errs.Add(ExtraerCodigo(AjustarCodPrecinta(Convert.ToString((20030780005) + i))));
+               // if (i % 2 != 0) List_Errs.Add(ExtraerCodigo(AjustarCodPrecinta(Convert.ToString((20030780005) + i))));
 
                 if (comprobacion_tacos)
 
