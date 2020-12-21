@@ -170,7 +170,7 @@ namespace LectorQR
                      while (Inicio)
                     {
                       
-                            myList.Start();
+                                myList.Start();
 
                             try
                             {
