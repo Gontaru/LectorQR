@@ -137,8 +137,7 @@ namespace LectorQR
             else
             {
                 Inicio = (Inicio) ? false : true;
-                StartB.Text = (Inicio) ? "Start" : "Pause";
-                StartB.BackColor = (Inicio) ? Color.DarkSeaGreen : Color.IndianRed;
+                StartB.BackColor = (Inicio) ? Color.DarkSeaGreen : Color.White;
                 NuevaOrdenB.Enabled = (Inicio) ? false : true;
                 OrdenTB.ReadOnly = Inicio;
                 LoteTB.ReadOnly = Inicio;
@@ -157,6 +156,11 @@ namespace LectorQR
                 }
                 LeerQR();
             }
+        }
+        private void GuardadB_Click(object sender, EventArgs e)
+        {
+            StartB.BackColor = Color.White;
+            Inicio = false;
         }
 
         //Función para leer los códigos QR
@@ -753,7 +757,7 @@ namespace LectorQR
         {
             //habilitamos el panel para registrar el tipo de incremento de las precintas(+10,-10,+1,-1,...)
             incremento_precintas_panel.Visible = (incremento_precintas_panel.Visible) ? false : true;
-            registrar_taco.BackColor = (registrar_taco.BackColor == Color.White) ? Color.SeaGreen : Color.White;
+            registrar_taco.BackColor = (registrar_taco.BackColor == Color.White) ? Color.DarkSeaGreen : Color.White;
 
         }
 
@@ -956,6 +960,7 @@ namespace LectorQR
         {
             red = (red) ? false : true;
         }
+
 
 
 

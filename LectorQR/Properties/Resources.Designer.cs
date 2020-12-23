@@ -73,6 +73,26 @@ namespace LectorQR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GenGuardar {
+            get {
+                object obj = ResourceManager.GetObject("GenGuardar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GenPapeleraNegra {
+            get {
+                object obj = ResourceManager.GetObject("GenPapeleraNegra", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icono_qrreader {
             get {
                 object obj = ResourceManager.GetObject("icono-qrreader", resourceCulture);
@@ -126,6 +146,16 @@ namespace LectorQR.Properties {
         internal static System.Drawing.Bitmap settings {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap simple_black_save_icon_9 {
+            get {
+                object obj = ResourceManager.GetObject("simple-black-save-icon-9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

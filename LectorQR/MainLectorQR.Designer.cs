@@ -41,7 +41,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.precintas_RTB = new System.Windows.Forms.ListView();
             this.label16 = new System.Windows.Forms.Label();
-            this.panelImagen = new System.Windows.Forms.Panel();
             this.PipeClientLB = new System.Windows.Forms.Label();
             this.OrdenTB = new System.Windows.Forms.TextBox();
             this.LoteTB = new System.Windows.Forms.TextBox();
@@ -81,8 +80,6 @@
             this.panelBarraTop = new System.Windows.Forms.Panel();
             this.TituloLB = new System.Windows.Forms.Label();
             this.PanelBarraDown = new System.Windows.Forms.Panel();
-            this.NuevaOrdenB = new System.Windows.Forms.Button();
-            this.configuracionB = new System.Windows.Forms.Button();
             this.incremento_precintas_panel = new System.Windows.Forms.Panel();
             this.incremento_diez = new System.Windows.Forms.Button();
             this.incremento_uno = new System.Windows.Forms.Button();
@@ -90,10 +87,14 @@
             this.comprobacion_tacos_button = new System.Windows.Forms.Button();
             this.registrar_taco = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.ExitB = new System.Windows.Forms.Button();
             this.StartB = new System.Windows.Forms.Button();
             this.taco_introducidoTB = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panelImagen = new System.Windows.Forms.Panel();
+            this.GuardadB = new System.Windows.Forms.Button();
+            this.NuevaOrdenB = new System.Windows.Forms.Button();
+            this.configuracionB = new System.Windows.Forms.Button();
+            this.ExitB = new System.Windows.Forms.Button();
             this.panelMainLectorQR.SuspendLayout();
             this.panelfill.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -261,16 +262,6 @@
             this.label16.Size = new System.Drawing.Size(245, 37);
             this.label16.TabIndex = 28;
             this.label16.Text = "Tacos añadidos";
-            // 
-            // panelImagen
-            // 
-            this.panelImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelImagen.BackgroundImage = global::LectorQR.Properties.Resources.icono_qrreader1;
-            this.panelImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panelImagen.Location = new System.Drawing.Point(497, 115);
-            this.panelImagen.Name = "panelImagen";
-            this.panelImagen.Size = new System.Drawing.Size(188, 179);
-            this.panelImagen.TabIndex = 11;
             // 
             // PipeClientLB
             // 
@@ -727,6 +718,7 @@
             // 
             // PanelBarraDown
             // 
+            this.PanelBarraDown.Controls.Add(this.GuardadB);
             this.PanelBarraDown.Controls.Add(this.NuevaOrdenB);
             this.PanelBarraDown.Controls.Add(this.configuracionB);
             this.PanelBarraDown.Controls.Add(this.incremento_precintas_panel);
@@ -741,34 +733,6 @@
             this.PanelBarraDown.Name = "PanelBarraDown";
             this.PanelBarraDown.Size = new System.Drawing.Size(1426, 106);
             this.PanelBarraDown.TabIndex = 14;
-            // 
-            // NuevaOrdenB
-            // 
-            this.NuevaOrdenB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.NuevaOrdenB.BackgroundImage = global::LectorQR.Properties.Resources.add_file;
-            this.NuevaOrdenB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.NuevaOrdenB.FlatAppearance.BorderSize = 0;
-            this.NuevaOrdenB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NuevaOrdenB.Location = new System.Drawing.Point(1191, 26);
-            this.NuevaOrdenB.Name = "NuevaOrdenB";
-            this.NuevaOrdenB.Size = new System.Drawing.Size(66, 64);
-            this.NuevaOrdenB.TabIndex = 17;
-            this.NuevaOrdenB.UseVisualStyleBackColor = true;
-            this.NuevaOrdenB.Click += new System.EventHandler(this.NuevaOrdenB_Click);
-            // 
-            // configuracionB
-            // 
-            this.configuracionB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.configuracionB.BackgroundImage = global::LectorQR.Properties.Resources.settings;
-            this.configuracionB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.configuracionB.FlatAppearance.BorderSize = 0;
-            this.configuracionB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.configuracionB.Location = new System.Drawing.Point(1270, 26);
-            this.configuracionB.Name = "configuracionB";
-            this.configuracionB.Size = new System.Drawing.Size(66, 64);
-            this.configuracionB.TabIndex = 15;
-            this.configuracionB.UseVisualStyleBackColor = true;
-            this.configuracionB.Click += new System.EventHandler(this.configuracionB_Click);
             // 
             // incremento_precintas_panel
             // 
@@ -855,20 +819,6 @@
             this.label12.TabIndex = 11;
             this.label12.Text = "Comprobacion de tacos:";
             // 
-            // ExitB
-            // 
-            this.ExitB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExitB.BackgroundImage = global::LectorQR.Properties.Resources.MenuApagar;
-            this.ExitB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ExitB.FlatAppearance.BorderSize = 0;
-            this.ExitB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExitB.Location = new System.Drawing.Point(1348, 26);
-            this.ExitB.Name = "ExitB";
-            this.ExitB.Size = new System.Drawing.Size(66, 64);
-            this.ExitB.TabIndex = 8;
-            this.ExitB.UseVisualStyleBackColor = true;
-            this.ExitB.Click += new System.EventHandler(this.ExitB_Click);
-            // 
             // StartB
             // 
             this.StartB.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -890,6 +840,72 @@
             this.taco_introducidoTB.Size = new System.Drawing.Size(8, 20);
             this.taco_introducidoTB.TabIndex = 13;
             this.taco_introducidoTB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.taco_introducidoTB_KeyDown);
+            // 
+            // panelImagen
+            // 
+            this.panelImagen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelImagen.BackgroundImage = global::LectorQR.Properties.Resources.icono_qrreader1;
+            this.panelImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelImagen.Location = new System.Drawing.Point(497, 115);
+            this.panelImagen.Name = "panelImagen";
+            this.panelImagen.Size = new System.Drawing.Size(188, 179);
+            this.panelImagen.TabIndex = 11;
+            // 
+            // GuardadB
+            // 
+            this.GuardadB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.GuardadB.BackgroundImage = global::LectorQR.Properties.Resources.simple_black_save_icon_9;
+            this.GuardadB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.GuardadB.FlatAppearance.BorderSize = 0;
+            this.GuardadB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GuardadB.Location = new System.Drawing.Point(1113, 26);
+            this.GuardadB.Name = "GuardadB";
+            this.GuardadB.Size = new System.Drawing.Size(66, 64);
+            this.GuardadB.TabIndex = 18;
+            this.GuardadB.UseVisualStyleBackColor = true;
+            this.GuardadB.Click += new System.EventHandler(this.GuardadB_Click);
+            // 
+            // NuevaOrdenB
+            // 
+            this.NuevaOrdenB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.NuevaOrdenB.BackgroundImage = global::LectorQR.Properties.Resources.GenPapeleraNegra;
+            this.NuevaOrdenB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.NuevaOrdenB.FlatAppearance.BorderSize = 0;
+            this.NuevaOrdenB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NuevaOrdenB.Location = new System.Drawing.Point(1191, 26);
+            this.NuevaOrdenB.Name = "NuevaOrdenB";
+            this.NuevaOrdenB.Size = new System.Drawing.Size(66, 64);
+            this.NuevaOrdenB.TabIndex = 17;
+            this.NuevaOrdenB.UseVisualStyleBackColor = true;
+            this.NuevaOrdenB.Click += new System.EventHandler(this.NuevaOrdenB_Click);
+            // 
+            // configuracionB
+            // 
+            this.configuracionB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.configuracionB.BackgroundImage = global::LectorQR.Properties.Resources.settings;
+            this.configuracionB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.configuracionB.FlatAppearance.BorderSize = 0;
+            this.configuracionB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.configuracionB.Location = new System.Drawing.Point(1270, 26);
+            this.configuracionB.Name = "configuracionB";
+            this.configuracionB.Size = new System.Drawing.Size(66, 64);
+            this.configuracionB.TabIndex = 15;
+            this.configuracionB.UseVisualStyleBackColor = true;
+            this.configuracionB.Click += new System.EventHandler(this.configuracionB_Click);
+            // 
+            // ExitB
+            // 
+            this.ExitB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExitB.BackgroundImage = global::LectorQR.Properties.Resources.MenuApagar;
+            this.ExitB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ExitB.FlatAppearance.BorderSize = 0;
+            this.ExitB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitB.Location = new System.Drawing.Point(1348, 26);
+            this.ExitB.Name = "ExitB";
+            this.ExitB.Size = new System.Drawing.Size(66, 64);
+            this.ExitB.TabIndex = 8;
+            this.ExitB.UseVisualStyleBackColor = true;
+            this.ExitB.Click += new System.EventHandler(this.ExitB_Click);
             // 
             // MainLectorQR
             // 
@@ -989,6 +1005,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button GuardadB;
     }
 }
 
