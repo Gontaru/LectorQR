@@ -951,8 +951,6 @@ namespace LectorQR
                     RichTCD_Leido.Clear();
                     precintas_RTB.Clear();
                 }
-               
-                
             }
         }
 

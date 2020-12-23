@@ -695,6 +695,7 @@
             this.panelBarraTop.AutoSize = true;
             this.panelBarraTop.BackColor = System.Drawing.Color.Maroon;
             this.panelBarraTop.Controls.Add(this.TituloLB);
+            this.panelBarraTop.Controls.Add(this.configuracionB);
             this.panelBarraTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelBarraTop.Location = new System.Drawing.Point(0, 0);
             this.panelBarraTop.Name = "panelBarraTop";
@@ -720,7 +721,6 @@
             // 
             this.PanelBarraDown.Controls.Add(this.GuardadB);
             this.PanelBarraDown.Controls.Add(this.NuevaOrdenB);
-            this.PanelBarraDown.Controls.Add(this.configuracionB);
             this.PanelBarraDown.Controls.Add(this.incremento_precintas_panel);
             this.PanelBarraDown.Controls.Add(this.comprobacion_tacos_button);
             this.PanelBarraDown.Controls.Add(this.registrar_taco);
@@ -858,7 +858,7 @@
             this.GuardadB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.GuardadB.FlatAppearance.BorderSize = 0;
             this.GuardadB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GuardadB.Location = new System.Drawing.Point(1113, 26);
+            this.GuardadB.Location = new System.Drawing.Point(1198, 26);
             this.GuardadB.Name = "GuardadB";
             this.GuardadB.Size = new System.Drawing.Size(66, 64);
             this.GuardadB.TabIndex = 18;
@@ -872,7 +872,7 @@
             this.NuevaOrdenB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.NuevaOrdenB.FlatAppearance.BorderSize = 0;
             this.NuevaOrdenB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.NuevaOrdenB.Location = new System.Drawing.Point(1191, 26);
+            this.NuevaOrdenB.Location = new System.Drawing.Point(1276, 26);
             this.NuevaOrdenB.Name = "NuevaOrdenB";
             this.NuevaOrdenB.Size = new System.Drawing.Size(66, 64);
             this.NuevaOrdenB.TabIndex = 17;
@@ -886,9 +886,9 @@
             this.configuracionB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.configuracionB.FlatAppearance.BorderSize = 0;
             this.configuracionB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.configuracionB.Location = new System.Drawing.Point(1270, 26);
+            this.configuracionB.Location = new System.Drawing.Point(1379, 0);
             this.configuracionB.Name = "configuracionB";
-            this.configuracionB.Size = new System.Drawing.Size(66, 64);
+            this.configuracionB.Size = new System.Drawing.Size(47, 45);
             this.configuracionB.TabIndex = 15;
             this.configuracionB.UseVisualStyleBackColor = true;
             this.configuracionB.Click += new System.EventHandler(this.configuracionB_Click);
